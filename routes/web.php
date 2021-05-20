@@ -12,3 +12,4 @@
 */
 
 Route::get('/', 'HomeController@top');
+Route::resource('inns', 'InnController');
