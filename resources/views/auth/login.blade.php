@@ -2,16 +2,16 @@
 
 @section('content')
 @include('commons/flash')
-<h1>ログイン</h1>
+<h1 class="text-center">ログイン</h1>
 <form action="{{ route('login') }}" method="post">
     @csrf
     <div class="form-group">
       <label for="email">メールアドレス</label>
-      <input type="email" name="email" value="{{ old('email') }}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      <input type="email" name="email" value="{{ old('email') }}" class="form-control">
     </div>
     <div class="form-group">
       <label for="password">パスワード</label>
-      <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+      <input type="password" name="password" class="form-control">
     </div>
     <button type="submit" class="btn btn-primary mx-auto d-block">ログイン</button>
 </form>
