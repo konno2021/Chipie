@@ -13,3 +13,4 @@
 
 Route::get('/', 'HomeController@top');
 Auth::routes();
+Route::resource('inns', 'InnController');
