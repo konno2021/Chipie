@@ -3,7 +3,7 @@
 @section('content')
 <form action="{{route('inns.index')}}" method="post">
 @csrf
-    <div class="container ml-3">
+    <div class="container">
     <div class="row">
         <div class="col-5">
         <p><h4>エリアで探す</h4><br>
