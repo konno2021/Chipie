@@ -15,7 +15,17 @@ class CreateInnsTable extends Migration
     {
         Schema::create('inns', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('inn_code_id')->unsigned()->index();
+            $table->string('name');
+            $table->string('address')->unique();
+            $table->string('tel');
+            $table->string('email')->unique();
+            $table->time('check_in');
+            $table->time('check_out');
+            $table->string('hp')->nullable();
             $table->timestamps();
+
+            $table->foreign('inn_code_id')->rederences('id')->on('inn_codes')->onDelete('cascade');
         });
     }
 
