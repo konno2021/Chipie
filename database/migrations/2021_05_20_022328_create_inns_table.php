@@ -25,7 +25,7 @@ class CreateInnsTable extends Migration
             $table->string('hp')->nullable();
             $table->timestamps();
 
-            $table->foreign('inn_code_id')->rederences('id')->on('inn_codes')->onDelete('cascade');
+            $table->foreign('inn_code_id')->references('id')->on('inn_codes')->onDelete('cascade');
         });
     }
 
