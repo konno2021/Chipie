@@ -52,7 +52,7 @@
         @endif
         @yield('content')
         <footer id="footer" class="footer bg-dark text-center pt-3 pb-2">
-            <a class="text-light" href="#">宿アカウント登録申請画面</a>
+            <a class="text-light" href="{{route('inns.create')}}">宿アカウント登録申請画面</a>
             <p class="text-white-50 pt-2 mb-0">Copyright © 2021 1班(しぴ) Inc.</p>
         </footer>
     </header>
