@@ -1,7 +1,7 @@
 @extends('commons.template')
 
 @section('content')
-<form action="{{route('inns.index')}}" method="post">
+<form action="{{route('inns.index')}}" method="get">
 @csrf
     <div class="container">
     <div class="row">
@@ -73,12 +73,12 @@
             <dd>
                 <dt>宿タイプ</dt>
                     <select name="inn_type" size="1">
-                        <option value="0">シティホテル</option>
-                        <option value="1">リゾートホテル</option>
-                        <option value="2">ビジネスホテル</option>
-                        <option value="3">旅館</option>
-                        <option value="4">民宿</option> 
-                        <option value="5">ペンション</option>
+                        <option value="1">シティホテル</option>
+                        <option value="2">リゾートホテル</option>
+                        <option value="3">ビジネスホテル</option>
+                        <option value="4">旅館</option>
+                        <option value="5">民宿</option> 
+                        <option value="6">ペンション</option>
                     </select>
             </dd>
         </dl>
