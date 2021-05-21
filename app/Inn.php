@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Inn extends Model
 {
+    protected $fillable=['inn_code_id','name', 'address', 'tel', 'email', 'check_in', 'check_out', 'hp' ] ;
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -20,4 +22,5 @@ class Inn extends Model
     {
         return $this->belongsTo(inn_code::class);
     }
+
 }

@@ -22,4 +22,4 @@ Route::get('admin/user_list', function(){return view('user/user_list');});
 Route::get('admin/inn_request_list', function(){return view('inn/inn_request_list');});
 Route::get('admin/inn_list', function(){return view('inn/inn_list');});
 Route::get('admin/plan_list', function(){return view('plan/plan_list');});
-
+Route::get('reserve', function(){return view('reservation/reservation_confirm');});

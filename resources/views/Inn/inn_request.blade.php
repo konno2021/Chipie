@@ -2,8 +2,8 @@
 
 @section('content')
 <h1 class="text-center py-3">宿アカウント登録申請画面</h1>
-<form action="#" method="POST">
-
+<form action="{{route('inns.store')}}" method="POST">
+@csrf
 
     <div class="col">
             <label for="inputAddress"class="font-weight-bold  ml-3">宿名</label>
@@ -41,6 +41,13 @@
     </div>
 
     <br>
+
+    <div class="form-group font-weight-bold col">
+        <label for="exampleInputEmail1">電話番号</label>
+        <input type="tel" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="012-3456-7890" name="tel" value="{{old('tel')}}">
+</div>
+
+<br>
 
     <div class="form-group font-weight-bold col">
         <label for="exampleInputPassword1">チェックイン時間：</label>
