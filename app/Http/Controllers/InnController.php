@@ -12,6 +12,7 @@ class InnController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index(Request $request)
     {
         $user_status = get_user_status();
@@ -47,9 +48,15 @@ class InnController extends Controller
             return view(route('inn/inn_index'));
         }
         elseif($user_status === 3)  {
-            $inn_lists=Inn::with('inn_code')->paginate(20);
+            $inn_lists=Inn::with('inn_code')->where('is_ok', true)->paginate(20);
             return view(route('admin/inn_list'));
         }
+    }
+
+    public function index_list() 
+    {
+        $inn_lists=Inn::with('inn_code')->where('is_ok', false)->paginate(20);
+        return view(route('admin/inn_request_list'));
     }
 
     /**
@@ -59,9 +66,7 @@ class InnController extends Controller
      */
     public function create()
     {
-        
         return view('inn/inn_request');
-
     }
 
     /**
@@ -72,7 +77,9 @@ class InnController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inn= new \App\Inn;
+        $inn->create($request->all());
+        return redirect(route('/'));
     }
 
     /**
