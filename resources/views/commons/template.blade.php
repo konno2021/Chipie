@@ -13,7 +13,7 @@
         <?php
             $user_status = -1;
 
-            if(Auth::check() === false){
+            if(!Auth::check()){
                 $user_status = 0;  // 非会員
             }
             else if(Auth::user()->inn_id !== null){
