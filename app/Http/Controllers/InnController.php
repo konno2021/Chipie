@@ -14,7 +14,8 @@ class InnController extends Controller
      */
     public function index()
     {
-        //
+        $inn_lists=Inn::with('inn_code')->paginate(20);
+        return view(route('admin/inn_list'))
     }
 
     /**

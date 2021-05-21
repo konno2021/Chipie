@@ -13,7 +13,7 @@
         <?php
             $user_status = -1;
 
-            if(!Auth::check()){
+            if(Auth::check() === false){
                 $user_status = 0;  // 非会員
             }
             else if(Auth::user()->inn_id !== null){
@@ -28,25 +28,16 @@
         ?>
         @if($user_status === 0 || $user_status === 1)
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="/">Chipie</a>
+                <a class="navbar-brand" href="/admin">Chipie管理者</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                    <a class="nav-link <?php if($user_status === 1) {echo 'disabled';} ?>" href="{{ route('login') }}">ログイン</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link <?php if($user_status === 1) {echo 'disabled';} ?>" href="{{ route('register') }}">会員登録</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link <?php if($user_status === 0) {echo 'disabled';} ?>" href="#">マイページ</a>
-                    </li>
-                    <li class="nav-item">
                         <form action="{{ route('logout') }}" method="post" name="logout_form">
                             @csrf
-                            <a class="nav-link <?php if($user_status === 0) {echo 'disabled';} ?>" href="javascript:logout_form.submit()">ログアウト</a>
+                            <a class="nav-link" href="javascript:logout_form.submit()">ログアウト</a>
                         </form>
                     </li>
                 </ul>
@@ -55,8 +46,7 @@
         @endif
     </header>
     @yield('content')
-    <footer id="footer" class="footer bg-dark text-center pt-3 pb-2">
-        <a class="text-light" href="{{route('inns.create')}}">宿アカウント登録申請画面</a>
+    <footer id="footer" class="footer bg-dark text-center pb-2">
         <p class="text-white-50 pt-2 mb-0">Copyright © 2021 1班(しぴ) Inc.</p>
     </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

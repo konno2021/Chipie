@@ -64,10 +64,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $inn_id = $data['inn_id'];
+        if($inn_id === 'null'){
+            $inn_id = null;
+        }
+        $is_admin = $data['is_admin'];
+        if($is_admin === 'false'){
+            $is_admin = false;
+        }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'inn_id' => $inn_id,
+            'address' => $data['address'],
+            'tel' => $data['tel'],
+            'birthday' => $data['birthday'],
+            'is_admin' => $is_admin,
+            'deleted_at' => null,
         ]);
     }
 }
