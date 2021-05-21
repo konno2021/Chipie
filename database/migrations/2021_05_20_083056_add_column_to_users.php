@@ -14,7 +14,7 @@ class AddColumnToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('inn_id')->unsigned()->index()->nullable();
+            $table->bigInteger('inn_id')->unsigned()->index()->nullable();
             $table->string('address');
             $table->string('tel');
             $table->date('birthday');
