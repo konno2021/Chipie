@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Inn;
+use App\Plan;
 use Illuminate\Http\Request;
 
 class InnController extends Controller
@@ -15,37 +16,101 @@ class InnController extends Controller
 
     public function index(Request $request)
     {
-        $user_status = get_user_status();
+        $user_status = Controller::get_user_status();
         if($user_status === 0 || $user_status === 1) {
             // 検索条件によってクエリビルダを作成
-            $plans = Plan::with('inn.inn_code');
+            $query_i = Inn::with('inn_code');
             
             // 都道府県検索
             if($request->area){
-                $area_array = get_area_array();
-                $plans->where('address', 'LIKE', "{$area_array[$request->area]}%");
+                $area_array = parent::get_area_array();
+                $query_i->where(function ($q) use($area_array, $request){
+                    $is_first = true;
+                    foreach($request->area as $area){
+                        if($is_first){
+                            $q->where('address', 'LIKE', "{$area_array[$area]}%");
+                            $is_first = false;
+                        }
+                        else{
+                            $q->orWhere('address', 'LIKE', "{$area_array[$area]}%");
+                        }
+                    }
+                });
             }
             // 分類コード検索
             if($request->inn_type){
-                $plans->where('inn_code_id', $request->inn_type);
+                if($request->inn_type !== 0){
+                    $query_i->where('inn_code_id', $request->inn_type);
+                }
             }
             // キーワード検索
             if($request->keyword){
-                $plans->where(function ($q){
+                $query_i->where(function ($q) use ($request){
                     $q->where('name', 'LIKE', "%{$request->keyword}%");
-                    $q->orWhere('address', 'LIKE', "%{$request->keyword}%")
+                    $q->orWhere('address', 'LIKE', "%{$request->keyword}%");
                 });
             }
             
-            // 以下、プランに対する検索
-            $inns->plans();
-
-            // 値段の下限検索
-            if($request->price_min){
-                
+            // プランに対する検索
+            $query_p = Plan::query();
+            
+            // 最小値検索
+            if($request->min_price){
+                $query_p->where('price', '>=', "{$request->min_price}");
+            }
+            // 最大値検索
+            if($request->max_price){
+                $query_p->where('price', '<=', "{$request->max_price}");
+            }
+            // チェックイン日付検索
+            if($request->check_in){
+                $check_in = date('Y-m-d', strtotime($request->check_in));
+                $query_p->where('started_at', '<=', "{$check_in}");
+            }
+            // チェックアウト日付検索
+            if($request->check_out){
+                $check_out = date('Y-m-d', strtotime($request->check_out));
+                $query_p->where('ended_at', '>=', "{$check_out}");
+            }
+            
+            // inn_idをkeyに持つプランの連想配列を作成
+            $plans = [];
+            $ok_id = [];
+            foreach($query_p->get() as $plan){
+                if(array_key_exists($plan->inn_id, $plans)){
+                    array_push($plans[$plan->inn_id], $plan); 
+                }
+                else{
+                    $plans[$plan->inn_id] = array($plan);
+                    $ok_id[$plan->inn_id] = $plan->inn_id;
+                }
             }
 
-            return view(route('inn/inn_index'));
+            // プランの連想配列のkeyを主キーに持たない宿を取り除く
+            // プランの検索数が0の宿を表示させないため
+
+            // $query_i->where(function ($q) use($plans){
+            //     $is_first = true;
+            //     foreach($plans as $inn_id => $plan){
+            //         if($is_first){
+            //             $q->where('id', '<>', $inn_id);
+            //             $is_first = false;
+            //         }
+            //         else{
+            //             $q->where('id', '<>', $inn_id);
+            //         }
+            //     }
+            // });
+
+            // foreach($plans as $inn_id => $plan){
+            //     $query_i->where('id', '<>', $inn_id);
+            // }
+
+            $query_i->whereIn('id', $ok_id);
+            // 宿情報の取得
+            $inns = $query_i->paginate(10);
+            
+            return view('inn/inn_index', ['inns' => $inns, 'plans' => $plans]);
         }
         elseif($user_status === 3)  {
             $inn_lists=Inn::with('inn_code')->where('is_ok', true)->paginate(20);

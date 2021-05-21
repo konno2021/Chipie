@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/template.css') }}">
     <title>{{ config('app.name') }}</title>
 </head>
 <body>
@@ -54,7 +55,9 @@
             </nav>
         @endif
     </header>
-    @yield('content')
+    <main>
+        @yield('content')
+    </main>
     <footer id="footer" class="footer bg-dark text-center pt-3 pb-2">
         <a class="text-light" href="{{route('inns.create')}}">宿アカウント登録申請画面</a>
         <p class="text-white-50 pt-2 mb-0">Copyright © 2021 1班(しぴ) Inc.</p>

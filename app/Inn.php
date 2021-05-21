@@ -20,7 +20,7 @@ class Inn extends Model
 
     public function inn_code()
     {
-        return $this->belongsTo(inn_code::class);
+        return $this->belongsTo(InnCode::class);
     }
 
 }

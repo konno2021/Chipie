@@ -2,8 +2,8 @@
 
 @section('content')
 <form action="{{route('inns.index')}}" method="get">
-@csrf
-    <div class="container">
+
+    <div class="container-fluid">
     <div class="row">
         <div class="col-5">
         <p><h4>エリアで探す</h4><br>
@@ -73,6 +73,7 @@
             <dd>
                 <dt>宿タイプ</dt>
                     <select name="inn_type" size="1">
+                        <option value="0">こだわりなし</option>
                         <option value="1">シティホテル</option>
                         <option value="2">リゾートホテル</option>
                         <option value="3">ビジネスホテル</option>

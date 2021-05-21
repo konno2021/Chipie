@@ -14,13 +14,13 @@ class Controller extends BaseController
     static public function get_user_status(){
         $user_status = -1;
 
-        if(Auth::check() === false){
+        if(\Auth::check() === false){
             $user_status = 0;  // 非会員
         }
-        else if(Auth::user()->inn_id !== null){
+        else if(\Auth::user()->inn_id !== null){
             $user_status = 2;  // 宿管理者
         }
-        else if(Auth::user()->is_admin){
+        else if(\Auth::user()->is_admin){
             $user_status = 3;    // 管理者
         }
         else{
@@ -29,7 +29,7 @@ class Controller extends BaseController
         return $user_status;
     }
 
-    public function get_area_array($num){
+    public function get_area_array(){
         $area = [
             1 => '北海道',
             2 => '青森県',
@@ -79,6 +79,6 @@ class Controller extends BaseController
             46 => '鹿児島県',
             47 => '沖縄県',
         ];
-        return area;
+        return $area;
     }
 }
