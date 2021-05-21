@@ -23,3 +23,5 @@ Route::get('admin/inn_request_list', function(){return view('inn/inn_request_lis
 Route::get('admin/inn_list', function(){return view('inn/inn_list');});
 Route::get('admin/plan_list', function(){return view('plan/plan_list');});
 Route::get('reserve', function(){return view('reservation/reservation_confirm');});
+Route::get('inn/inn_index', function(){return view('inn/inn_index');});
+Route::get('inn/inn_show', function(){return view('inn/inn_show');});
