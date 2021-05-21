@@ -36,9 +36,9 @@
             </dd>
         </dl>
         <p>
-        <a href={{ route('user.edit', \Auth::user()) }}>編集する</a>
-        <a href={{ route('user.destroy', \Auth::user()) }} onclick="deleteUser()">削除する</a>
-        <form action="{{ route('user.destroy', \Auth::user()) }}" method="post" id="delete-form">
+        <a href={{ route('user.edit', Auth::user()) }}>編集する</a>
+        <a href={{ route('user.destroy', Auth::user()) }} onclick="deleteUser()">削除する</a>
+        <form action="{{ route('user.destroy', /Auth::user()) }}" method="post" id="delete-form">
         @csrf
         @method('delete')
         </form>
