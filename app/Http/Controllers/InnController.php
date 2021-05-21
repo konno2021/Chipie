@@ -14,8 +14,15 @@ class InnController extends Controller
      */
     public function index()
     {
-        $inn_lists=Inn::with('inn_code')->paginate(20);
-        return view(route('admin/inn_list'))
+        $user_statue = get_user_status();
+        if($user_status === 0 || $user_status === 1) {
+            $inn_lists=Inn::with('inn_code')->paginate(20);
+            return view(route('inn/inn_index'));
+        }
+        elseif($user_status === 3)  {
+            $inn_lists=Inn::with('inn_code')->paginate(20);
+            return view(route('admin/inn_list'));
+        }
     }
 
     /**
