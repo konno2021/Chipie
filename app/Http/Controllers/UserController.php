@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Reservation;
 use Illuminate\Http\Request;
 
-class ReservationController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +13,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $plans = \Auth::user()->plans()
-            ->orderBy('created_at', 'desc')->paginnate(5);
-            return view('mypage',['plans'-=>$plans])
+        //
     }
 
     /**
@@ -43,10 +40,10 @@ class ReservationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Reservation  $reservation
+     * @param  int  User $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Reservation $reservation)
+    public function show(User $user)
     {
         //
     }
@@ -54,10 +51,10 @@ class ReservationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Reservation  $reservation
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Reservation $reservation)
+    public function edit(User $user)
     {
         //
     }
@@ -66,10 +63,10 @@ class ReservationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Reservation  $reservation
+     * @param  int  User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Reservation $reservation)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -77,10 +74,10 @@ class ReservationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Reservation  $reservation
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reservation $reservation)
+    public function destroy(User $user)
     {
         //
     }

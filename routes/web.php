@@ -14,3 +14,6 @@
 Route::get('/', 'HomeController@top');
 Auth::routes();
 Route::resource('inns', 'InnController');
+Route::get('mypage', function() {
+    return view('home/mypage');
+});
