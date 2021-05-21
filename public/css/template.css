@@ -1,0 +1,6 @@
+@media (min-width: 1024px){
+    main {
+        width: 75%;
+        margin: 0 auto;
+    };
+}
