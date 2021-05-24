@@ -38,7 +38,7 @@ article{
     </div>
   </div>
 
-  <form action="#" method="#">
+  <form action="{{route('reservations.create_register', $plan)}}" method="post">
     @csrf
 <div class="form-row m-0">
     <div class="col-md-8">
@@ -71,8 +71,8 @@ article{
 </div>
   
 </div>
-  <button type="button" class="btn btn-success btn-lg btn-block pt-3">予約する</button>
+  <button type="submit" class="btn btn-success btn-lg btn-block pt-3">予約する</button>
       
     
-  <form>
+  </form>
 @endsection

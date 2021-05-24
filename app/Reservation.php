@@ -15,4 +15,5 @@ class Reservation extends Model
     {
         return $this->belongsTo(Plan::class);
     }
+    
 }

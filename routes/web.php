@@ -14,11 +14,12 @@
 Route::get('/', 'HomeController@top');
 Auth::routes();
 Route::resource('inns', 'InnController');
-Route::get('mypage', function() {
-    return view('home/mypage');
-});
+Route::get('mypage', function() {return view('home/mypage');});
 Route::resource('users', 'UserController');
-
+Route::resource('posts', 'PostController');
+Route::resource('reservations', 'ReservationController', ['except' => ['create']]);
+Route::get('reservations/{plan}/create', 'ReservationController@create')->name('reservations.create');
+Route::post('reservations/{plan}/create/register', 'ReservationController@create_register')->name('reservations.create_register');
 // 仮
 Route::get('admin', function(){return view('home/admin');});
 Route::get('admin/user_list', function(){return view('user/user_list');});
