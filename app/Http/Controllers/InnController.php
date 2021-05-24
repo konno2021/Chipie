@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Inn;
 use App\Plan;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class InnController extends Controller
 {
@@ -119,10 +121,16 @@ class InnController extends Controller
         }
     }
 
-    public function index_list() 
+    public function index_request_list() //宿アカウント登録申請の一覧
     {
-        $inn_lists=Inn::with('inn_code')->where('is_ok', false)->paginate(20);
-        return view(route('admin/inn_request_list'));
+        $inn_request_lists=Inn::with('inn_code')->where('is_ok', false)->paginate(20);
+        return view('inn/inn_request_list', ['inn_request_lists'=>$inn_request_lists]);
+    }
+
+    public function index_list() //宿アカウントの一覧
+    {
+        $inn_lists=Inn::with('inn_code')->where('is_ok', true)->paginate(20);
+        return view('inn/inn_list', ['inn_lists'=>$inn_lists]);
     }
 
     /**
@@ -144,8 +152,11 @@ class InnController extends Controller
     public function store(Request $request)
     {
         $inn= new \App\Inn;
+        $password = Hash::make($request->password);
+        $password = array('password' => $password);
+        $request->merge($password);
         $inn->create($request->all());
-        return redirect(route('/'));
+        return redirect('/');
     }
 
     /**
@@ -168,7 +179,7 @@ class InnController extends Controller
      */
     public function edit(Inn $inn)
     {
-        //
+        return view('inn.inn_edit', ['inn'=>$inn]);
     }
 
     /**
@@ -180,7 +191,8 @@ class InnController extends Controller
      */
     public function update(Request $request, Inn $inn)
     {
-        //
+        $inn->update($request->all());
+        return redirect(route('inn.list'));
     }
 
     /**
@@ -191,6 +203,10 @@ class InnController extends Controller
      */
     public function destroy(Inn $inn)
     {
-        //
+        $user=User::where('inn_id', $inn->id)->first();
+        $user->deleted_at=date("Y-m-d H:i:s");
+        $user->save();
+        $inn->delete();
+        return redirect(route('inn.list'));
     }
 }

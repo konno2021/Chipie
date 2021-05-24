@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Inn extends Model
 {
-    protected $fillable=['inn_code_id','name', 'address', 'tel', 'email', 'check_in', 'check_out', 'hp' ] ;
+    protected $fillable=['name','inn_code_id','address', 'tel', 'email', 'check_in', 'check_out', 'hp', 'password' ] ;
 
     public function user()
     {

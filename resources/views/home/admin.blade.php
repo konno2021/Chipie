@@ -1,7 +1,7 @@
-@extends('commons.template_admin')
+@extends('commons.template')
 
 @section('content')
-<h2 class="mb-3 pt-3"><a href="admin/user_list">◇会員の一覧</a></h2>
+<h2 class="mb-3 pt-3"><a href="{{route('users.index')}}">◇会員の一覧</a></h2>
 <table class="table table-bordered">
 	<thead  class="thead-dark">
 		<tr class="pd-2">
@@ -52,7 +52,7 @@
         
 </table>
 
-<h2 class="mb-3 pt-3"><a href="admin/inn_request_list">◇宿アカウント登録承認申請一覧</a></h2>
+<h2 class="mb-3 pt-3"><a href="{{route('inn.request_list')}}">◇宿アカウント登録承認申請一覧</a></h2>
 <table class="table table-bordered">
 	<thead  class="thead-dark">
 		<tr class="pd-2">
@@ -97,7 +97,7 @@
     </tr>       
 </table>
 
-<h2 class="mb-3 pt-3"><a href="admin/inn_list">◇宿アカウント一覧</a></h2>
+<h2 class="mb-3 pt-3"><a href="{{route('inn.list')}}">◇宿アカウント一覧</a></h2>
 <table class="table table-bordered">
 	<thead  class="thead-dark">
 		<tr class="pd-2">
