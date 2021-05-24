@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Reservation;
+use App\Plan;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -16,7 +17,7 @@ class ReservationController extends Controller
     {
         $plans = \Auth::user()->plans()
             ->orderBy('created_at', 'desc')->paginnate(5);
-            return view('mypage',['plans'-=>$plans])
+            return view('mypage',['plans'=>$plans]);
     }
 
     /**
@@ -24,9 +25,14 @@ class ReservationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Plan $plan)
     {
-        //
+        return view('reservation/reservation_confirm', ['plan' => $plan]);
+    }
+
+    public function create_register(Plan $plan, Request $request)
+    {
+        return view('reservation/create_register');
     }
 
     /**

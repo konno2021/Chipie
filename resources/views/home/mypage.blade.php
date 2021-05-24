@@ -8,37 +8,37 @@
         <dl>
             <dd>
                 <dt>名前</dt>
-                {{-- {{ \Auth::user()->name }} --}}
+                {{ Auth::user()->name }}
             </dd>
         </dl>
         <dl>
             <dt>住所</dt>
             <dd>
-                {{-- {{ \Auth::user()->address }} --}}
+                {{ Auth::user()->address }}
             </dd>
         </dl>
         <dl>
             <dt>メールアドレス</dt>
             <dd>
-                {{-- {{ \Auth::user()->email }} --}}
+                {{ Auth::user()->email }}
             </dd>
         </dl>
         <dl>
             <dt>生年月日</dt>
             <dd>
-                 {{-- {{ \Auth::user()->birthday }} --}}
+                {{ Auth::user()->birthday }}
             </dd>
         </dl>
-        <dl>
+        {{-- <dl>
             <dt>パスワード</dt>
             <dd>
-                 {{-- {{ \Auth::user()->password }} --}}
+                {{ Auth::user()->password }}
             </dd>
-        </dl>
+        </dl> --}}
         <p>
-        <a href={{ route('user.edit', Auth::user()) }}>編集する</a>
-        <a href={{ route('user.destroy', Auth::user()) }} onclick="deleteUser()">削除する</a>
-        <form action="{{ route('user.destroy', /Auth::user()) }}" method="post" id="delete-form">
+        <a href={{ route('users.edit', Auth::user()) }}>編集する</a>
+        <a href={{ route('users.destroy', Auth::user()) }} onclick="deleteUser()">削除する</a>
+        <form action="{{ route('users.destroy', Auth::user()) }}" method="post" id="delete-form">
         @csrf
         @method('delete')
         </form>

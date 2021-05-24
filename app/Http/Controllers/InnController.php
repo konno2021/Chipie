@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Inn;
 use App\Plan;
+use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -166,7 +167,8 @@ class InnController extends Controller
      */
     public function show(Inn $inn)
     {
-        //
+        $plans = Plan::where('inn_id', $inn->id)->with('posts')->get();
+        return view('inn/inn_show', ['inn' => $inn, 'plans' => $plans]);
     }
 
     /**
