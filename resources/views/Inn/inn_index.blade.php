@@ -43,7 +43,7 @@
                                     <p class="card-title h4 text-center">{{ $plan->plan_name }}</p>
                                     <p class="card-text text-center">{{ number_format($plan->price) }}円 / {{ $plan->room }}部屋</p>
                                     <p class="card-text">{{ $plan->description }}</p>
-                                    <p class="text-center mb-0"><a href="#" class="btn btn-primary">詳細・予約</a></p>
+                                    <p class="text-center mb-0"><a href="{{ route('reservations.create', $plan) }}" class="btn btn-primary">詳細・予約</a></p>
                                 </div>
                             </div>
                         @endforeach

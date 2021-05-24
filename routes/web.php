@@ -18,6 +18,8 @@ Route::get('mypage', function() {
     return view('home/mypage');
 });
 Route::resource('users', 'UserController');
+Route::resource('reservations', 'ReservationController', ['except' => ['create']]);
+Route::get('reservations/{plan}/create', 'ReservationController@create')->name('reservations.create');
 
 // 仮
 Route::get('admin', function(){return view('home/admin');});
