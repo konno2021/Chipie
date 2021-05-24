@@ -17,6 +17,9 @@ Route::resource('inns', 'InnController');
 Route::get('mypage', function() {
     return view('home/mypage');
 });
+Route::resource('users', 'UserController');
+
+// 仮
 Route::get('admin', function(){return view('home/admin');});
 Route::get('admin/user_list', function(){return view('user/user_list');});
 Route::get('admin/inn_request_list', function(){return view('inn/inn_request_list');});
