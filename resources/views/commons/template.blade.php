@@ -42,7 +42,7 @@
                     <a class="nav-link <?php if($user_status === 1) {echo 'disabled';} ?>" href="{{ route('register') }}">会員登録</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link <?php if($user_status === 0) {echo 'disabled';} ?>" href="#">マイページ</a>
+                    <a class="nav-link <?php if($user_status === 0) {echo 'disabled';} ?>" href="{{ route('mypage') }}">マイページ</a>
                     </li>
                     <li class="nav-item">
                         <form action="{{ route('logout') }}" method="post" name="logout_form">
@@ -53,7 +53,9 @@
                 </ul>
                 </div>
             </nav>
-        @else
+        @elseif($user_status === 2)
+            {{-- 宿管理者 --}}
+        @elseif($user_status === 3)
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="/admin">Chipie管理者</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,6 +75,7 @@
         @endif
     </header>
     <main>
+        @include('commons/flash')
         @yield('content')
     </main>
     @if($user_status === 0 || $user_status === 1)

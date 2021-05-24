@@ -15,6 +15,7 @@ use App\Http\Controllers\InnController;
 
 Route::get('/', 'HomeController@top');
 Auth::routes();
+Route::get('mypage', 'HomeController@mypage')->name('mypage');
 Route::resource('inns', 'InnController');
 Route::resource('users','UserController');
 Route::resource('users', 'UserController');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class PostController extends Controller
 {
@@ -35,6 +36,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        Cookie::queue('poster_name', $request->poster_name, 43200);
         $post = new Post;
         $post->create($request->all());
         return back();

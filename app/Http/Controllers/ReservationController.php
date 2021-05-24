@@ -32,7 +32,16 @@ class ReservationController extends Controller
 
     public function create_register(Plan $plan, Request $request)
     {
-        return view('reservation/create_register');
+        $this->validate($request, [
+            'check_in' => 'required',
+            'check_out' => 'required',
+            'room' => 'required',
+        ]);
+        $check_in = $request->check_in;
+        $check_out = $request->check_out;
+        $room = $request->room;
+        $demand = $request->demand;
+        return view('reservation/create_register', ['plan' => $plan, 'check_in' => $check_in, 'check_out' => $check_out, 'room' => $room]);
     }
 
     /**
