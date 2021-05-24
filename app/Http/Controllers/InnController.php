@@ -156,7 +156,7 @@ class InnController extends Controller
      */
     public function show(Inn $inn)
     {
-        $plans = Plan::where('inn_id', $inn->id)->with('posts')->paginate(10);
+        $plans = Plan::where('inn_id', $inn->id)->with('posts')->get();
         return view('inn/inn_show', ['inn' => $inn, 'plans' => $plans]);
     }
 
