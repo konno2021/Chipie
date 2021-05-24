@@ -29,9 +29,9 @@
             </a>
     </div>
         <p class="mb-3 ml-3 pt-3">
-        {{dd($plans)}}
         @foreach ($plans as $plan)
-        {{$plan->plan_name}}
+            {{$plan->plan_name}}
+            {{-- @foreach($plan->posts as $post)でいけるはず・・・？ --}}
         @endforeach
         {{-- <form action="{{ route('reservation.confirm') }}" method="post"> --}}
 
