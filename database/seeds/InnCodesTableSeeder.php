@@ -19,3 +19,4 @@ class InnCodesTableSeeder extends Seeder
         DB::table('inn_codes')->insert(['inn_code' => 'ペンション']);
     }
 }
+
