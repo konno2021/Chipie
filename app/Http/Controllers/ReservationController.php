@@ -17,7 +17,7 @@ class ReservationController extends Controller
     {
         $plans = \Auth::user()->plans()
             ->orderBy('created_at', 'desc')->paginnate(5);
-            return view('mypage',['plans'=>$plans]);
+            return view('mypage',['plans' => $plans]);
     }
 
     /**
