@@ -155,7 +155,7 @@ class InnController extends Controller
      */
     public function show(Inn $inn)
     {
-        //
+        // $plans = new Plan::where('inn_id', $inn->id);
     }
 
     /**
