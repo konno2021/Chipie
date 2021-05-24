@@ -42,11 +42,11 @@
 				<div class="form-row font-weight-bold">
 					<div class="form-group col-4">
 						<label for="check-in">チェックイン日時</label>
-						<input type="date" name="check_in" id="check-in" class="form-control" value="{{ old('check_in') }}">
+						<input type="date" name="check_in" id="check-in" class="form-control" value="{{ old('check_in') }}" min="{{ date('Y-m-d', strtotime('+1 day')) }}">
 					</div>
 					<div class="form-group col-4">
 						<label for="check-out">チェックアウト日時</label>
-						<input type="date" name="check_out" id="check-out" class="form-control" value="{{ old('check_out') }}">
+						<input type="date" name="check_out" id="check-out" class="form-control" value="{{ old('check_out') }}" min="{{ date('Y-m-d', strtotime('+2 day')) }}">
 					</div>
 
 					<div class="form-group col-4">
