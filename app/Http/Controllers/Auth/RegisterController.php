@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = ('/');
 
     /**
      * Create a new controller instance.
@@ -71,6 +71,11 @@ class RegisterController extends Controller
         $is_admin = $data['is_admin'];
         if($is_admin === 'false'){
             $is_admin = false;
+        }
+        //管理者用の登録に追加しました
+        $is_admin = $data['is_admin'];
+        if($is_admin === 'true'){
+            $is_admin = true;
         }
         return User::create([
             'name' => $data['name'],

@@ -11,17 +11,24 @@
 |
 */
 
+use App\Http\Controllers\InnController;
+
 Route::get('/', 'HomeController@top');
 Auth::routes();
 Route::resource('inns', 'InnController');
+Route::resource('users','UserController');
+Route::delete('/inn_request/delete/{id}', 'UserController@destroy_request')->name('users.destroy_request');
 Route::get('mypage', function() {
     return view('home/mypage');
 });
 Route::get('admin', function(){return view('home/admin');});
 Route::get('admin/user_list', function(){return view('user/user_list');});
-Route::get('admin/inn_request_list', function(){return view('inn/inn_request_list');});
+Route::get('inn/inn_request_list', function(){return view('inn/inn_request_list');})->name('inn.request_list');
 Route::get('admin/inn_list', function(){return view('inn/inn_list');});
 Route::get('admin/plan_list', function(){return view('plan/plan_list');});
 Route::get('reserve', function(){return view('reservation/reservation_confirm');});
 Route::get('inn/inn_index', function(){return view('inn/inn_index');});
 Route::get('inn/inn_show', function(){return view('inn/inn_show');});
+
+Route::get('inn/request_list', 'InnController@index_request_list')->name('inn.request_list');
+Route::get('inn/list', 'InnController@index_list')->name('inn.list');
