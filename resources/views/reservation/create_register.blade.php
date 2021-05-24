@@ -30,7 +30,7 @@
                 <li class="list-group-item">住所:#</li>
                 <li class="list-group-item">生年月日:#</li>
             </ul>
-            <a href="{{route('users.edit', $id)}}">個人情報を編集する</a>
+            <a href="{{route('users.edit', Auth::user())}}">個人情報を編集する</a>
         </div>
     </div>
 @endsection
