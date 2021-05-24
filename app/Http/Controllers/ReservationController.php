@@ -36,6 +36,7 @@ class ReservationController extends Controller
             'check_in' => 'required',
             'check_out' => 'required',
             'room' => 'required',
+            'sum_price' => 'gt:0'
         ]);
         $check_in = $request->check_in;
         $check_out = $request->check_out;
