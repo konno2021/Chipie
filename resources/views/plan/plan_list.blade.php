@@ -1,4 +1,4 @@
-@extends('commons.template_admin')
+@extends('commons.template')
 
 @section('content')
 <h2 class="mb-3 pt-3">◇プラン一覧</h2>
@@ -15,7 +15,7 @@
 		</tr>
 	</thead>
 	<tbody>
-@foreach ($plan_lists as $plan_list)
+{{-- @foreach ($plan_lists as $plan_list)
 		<tr v-for="(user,index) in users" v-bind:key="index">
 			<td>{{$plan_list->'#'}}</td>
 			<td>{{$plan_list->'#'}}</td>
@@ -31,7 +31,7 @@
             </td>
 
 		</tr>
-@endforeach
+@endforeach --}}
 </tbody>
 </table>
 @endsection

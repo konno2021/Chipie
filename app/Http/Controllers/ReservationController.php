@@ -30,6 +30,11 @@ class ReservationController extends Controller
         return view('reservation/reservation_confirm', ['plan' => $plan]);
     }
 
+    public function create_register(Plan $plan, Request $request)
+    {
+        return view('reservation/create_register');
+    }
+
     /**
      * Store a newly created resource in storage.
      *

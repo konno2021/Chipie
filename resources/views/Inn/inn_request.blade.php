@@ -17,12 +17,12 @@
             <dd>
                 <dt  class=" ml-3">分類コード</dt>
                     <select name="inn_code_id" size="1" class=" ml-3">
-                        <option value="0">シティホテル</option>
-                        <option value="1">リゾートホテル</option>
-                        <option value="2">ビジネスホテル</option>
-                        <option value="3">旅館</option>
-                        <option value="4">民宿</option> 
-                        <option value="5">ペンション</option>
+                        <option value="1">シティホテル</option>
+                        <option value="2">リゾートホテル</option>
+                        <option value="3">ビジネスホテル</option>
+                        <option value="4">旅館</option>
+                        <option value="5">民宿</option> 
+                        <option value="6">ペンション</option>
                     </select>
             </dd>
         </dl>
@@ -73,7 +73,6 @@
                     <input type="checkbox" class="form-check-input " id="exampleCheck1">
                     <label class="form-check-label " for="exampleCheck1">ご確認の上クリックをお願いします</label>
      </div>
-    
      <button type="submit" class="btn btn-primary col">申請</button>
   </form>
 </div>

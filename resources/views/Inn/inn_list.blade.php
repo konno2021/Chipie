@@ -1,4 +1,4 @@
-@extends('commons.template_admin')
+@extends('commons.template')
 
 @section('content')
 <h2 class="mb-3 pt-3">◇宿アカウント一覧</h2>
@@ -16,20 +16,37 @@
 		</tr>
 	</thead>
 	<tbody>
-@foreach ($inn_lists as $inn_list)
+@foreach ($inn_lists as $inn)
 		<tr v-for="(user,index) in users" v-bind:key="index">
-			<td>{{$inn_list->'id'}}</td>
-			<td>{{$inn_list->'name'}}</td>
-			<td>{{$inn_list->'inn_code'}}</td>
-            <td>{{$inn_list->'address'}}</td>
-            <td>{{$inn_list->'#'}}</td>
-            <td>{{$inn_list->'#'}}</td>
+			<td>{{$inn->id}}</td>
+			<td>{{$inn->name}}</td>
+			<td>{{$inn->inn_code_id}}</td>
+            <td>{{$inn->address}}</td>
+            <td>{{$inn->tel}}</td>
+            <td>{{$inn->email}}</td>
             <td>
-                <form method="get" action="{{route('inns.edit', $inn_list)}}">
-                    @csrf
-                        <button class="btn btn-danger">詳細
-                            
-                        </button>
+                <div class="form-row">
+                    <button><a href="{{route('inns.edit', $inn)}}">変更</a></button>
+                    {{-- <form method="post" action="{{route('inns.edit', $inn_list)}}">
+                        @csrf
+                        <input type="hidden" name="password" value="{{$inn_list->password}}">
+                        <input type="hidden" name="inn_id" value="{{$inn_list->id}}">
+                        <input type="hidden" name="name" value="{{$inn_list->name}}">
+                        <input type="hidden" name="address" value="{{$inn_list->address}}">
+                        <input type="hidden" name="tel" value="{{$inn_list->tel}}">
+                        <input type="hidden" name="email" value="{{$inn_list->email}}">
+                            <button class="btn btn-primary">変更
+                                
+                            </button>
+                    </form> --}}
+                    <form method="post" action="{{route('inns.destroy', $inn)}}">
+                        @csrf
+                        @method('delete')
+                            <button class="btn btn-danger">削除
+                                        
+                            </button>
+                    </form>
+                    </div>
             </td>
 
 		</tr>

@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Hash;
+
+use App\User;
+use App\Inn;
+
 class UserController extends Controller
 {
     /**
@@ -13,7 +18,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $user_lists=User::where('is_admin', false)->where('inn_id', null)->where('deleted_at', null)->paginate(20);
+        return view('user/user_list', ['user_lists'=>$user_lists]);
     }
 
     /**
@@ -23,7 +29,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -34,7 +40,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user_status=Controller::get_user_status();
+        if($user_status===1||$user_status===0)
+        {
+
+        }elseif($user_status===3){
+            $inn=Inn::find($request->inn_id);
+            $inn->is_ok=true;
+            $inn->password=Hash::make('123456789');
+            $inn->save();
+            $user=new User;
+            $user->name=$request->name;
+            $user->address=$request->address;
+            $user->tel=$request->tel;
+            $user->email=$request->email;
+            $user->password=$request->password;
+            $user->inn_id=$request->inn_id;
+            $user->birthday=null;
+            $user->is_admin=false;
+            $user->deleted_at=null;
+            $user->save();
+            return back();
+        }
     }
 
     /**
@@ -56,7 +83,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('edit', ['user' => $user]);
+        return view('user.user_edit', ['user' => $user]);
     }
 
     /**
@@ -68,7 +95,8 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $user->update($request->all());
+        return redirect(route('users.index'));
     }
 
     /**
@@ -79,7 +107,19 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
-        return redirect(route('/'));
+       
+        $user=User::find($user->id);
+        $user->deleted_at=date("Y-m-d H:i:s");
+        $user->save();
+        return redirect(route('users.index'));
+        
+        
+    }
+
+    public function destroy_request($id)
+    {
+        $inn_request=Inn::find($id);
+        $inn_request->delete();
+        return redirect('/');
     }
 }

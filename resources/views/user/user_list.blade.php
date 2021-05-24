@@ -1,4 +1,4 @@
-@extends('commons.template_admin')
+@extends('commons.template')
 
 @section('content')
 <h2 class="mb-3 pt-3">◇会員一覧</h2>
@@ -12,24 +12,30 @@
             <th>電話番号</th>
             <th>メールアドレス</th>
             <th>生年月日</th>
-            <th>詳細</th>
+            <th>変更・削除</th>
 		</tr>
 	</thead>
 	<tbody>
-@foreach ($user_lists as $user_list)
+@foreach ($user_lists as $user)
 		<tr v-for="(user,index) in users" v-bind:key="index">
-			<td>{{$user_list->'id'}}</td>
-			<td>{{$user_list->'name'}}</td>
-			<td>{{$user_list->'inn_code'}}</td>
-            <td>{{$user_list->'address'}}</td>
-            <td>{{$user_list->'#'}}</td>
-            <td>{{$user_list->'#'}}</td>
+			<td>{{$user->id}}</td>
+			<td>{{$user->name}}</td>
+			<td>{{$user->address}}</td>
+            <td>{{$user->tel}}</td>
+            <td>{{$user->email}}</td>
+            <td>{{$user->birthday}}</td>
             <td>
-                <form method="get" action="{{route('#', $inn_list)}}">
-                    @csrf
-                        <button class="btn btn-danger">詳細
-                            
-                        </button>
+                <div class="form-row">
+                    <button><a href="{{route('users.edit', $user)}}">変更</a></button>
+                
+                    <form method="post" action="{{route('users.destroy', $user->id)}}">
+                        @csrf
+                        @method('DELETE')
+                            <button class="btn btn-danger">削除
+                                        
+                            </button>
+                    </form>
+                </div>
             </td>
 
 		</tr>
