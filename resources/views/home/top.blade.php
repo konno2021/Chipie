@@ -5,7 +5,7 @@
 
     <div class="container-fluid">
     <div class="row">
-        <div class="col-5">
+        <div class="col-4">
         <p><h4>エリアで探す</h4><br>
     
             <p><h6>北海道・東北</h6>
@@ -106,7 +106,7 @@
     <p><input type="submit" value="検索"></p>
     </div>
 
-    <div class="col-2">
+    <div class="col-3">
     <p><h4>今週の<br>おすすめ宿</h4><br></p>
     </div>
     </div>

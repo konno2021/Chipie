@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Inn;
 use App\Plan;
+use App\Post;
 use Illuminate\Http\Request;
 
 class InnController extends Controller
@@ -155,7 +156,8 @@ class InnController extends Controller
      */
     public function show(Inn $inn)
     {
-        //
+        $plans = Plan::where('inn_id', $inn->id);
+        return view('inn/inn_show', ['inn' => $inn, 'plans' => $plans]);
     }
 
     /**
