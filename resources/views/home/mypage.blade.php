@@ -63,31 +63,69 @@
                         <ul class="list-group">
                             <li class="list-group-item">宿名：<a href="{{ route('inns.show', $reservation->plan->inn) }}">{{ $reservation->plan->inn->name }}</a></li>
                             <li class="list-group-item">プラン名：{{ $reservation->plan->plan_name }}</li>
+                            <li class="list-group-item">チェックイン：{{ $reservation->check_in }}</li>
+                            <li class="list-group-item">チェックアウト：{{ $reservation->check_out }}</li>
                             <li class="list-group-item">部屋数：{{ $reservation->room }}</li>
                             <li class="list-group-item">確認用トークン：{{ $reservation->token }}</li>
+                            <li class="list-group-item">登録日：{{ $reservation->updated_at }}</li>
                             <li class="list-group-item">予約状況：
                                 @if($reservation->status == 0)
                                     <span>予約中</span>
-                                    <div class="text-center mt-4 mb-3">
-                                        <a class="btn btn-info text-light" href="#collapse{{ $reservation->id }}" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapse{{ $reservation->id }}">変更する</a>
-                                        <a class="btn btn-danger text-light">キャンセルする</a>
+                                    <div class="container">
+                                        <div class="text-center mt-4 row">
+                                            <div class="col-6">
+                                                <p><a class="btn btn-info text-light" href="#collapse{{ $reservation->id }}" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapse{{ $reservation->id }}">変更する</a></p>
+                                            </div>
+                                            <div class="col-6">
+                                                <form action="{{ route('reservations.destroy', $reservation->id) }}" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button class="btn btn-danger">キャンセルする</button>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 @elseif($reservation->status == 1)
                                     <span>キャンセル待ち予約</span>
-                                    <div class="text-center mt-4 mb-3">
-                                        <a class="btn btn-info text-light" href="#collapse{{ $reservation->id }}" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapse{{ $reservation->id }}">変更する</a>
-                                        <a class="btn btn-danger text-light">キャンセルする</a>
+                                    <div class="container">
+                                        <div class="text-center mt-4 row">
+                                            <div class="col-6">
+                                                <p><a class="btn btn-info text-light" href="#collapse{{ $reservation->id }}" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapse{{ $reservation->id }}">変更する</a></p>
+                                            </div>
+                                            <div class="col-6">
+                                                <form action="{{ route('reservations.destroy', $reservation->id) }}" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button class="btn btn-danger">キャンセルする</button>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 @elseif($reservation->status == 2)
                                     <span>予約可能（ボタンを押すと予約が完了します）<br></span>
-                                    <div class="text-center mt-4 mb-3">
-                                        <a class="btn btn-success text-light">予約をする</a>
-                                        <a class="btn btn-danger text-light">キャンセルする</a>
+                                    <div class="container">
+                                        <div class="text-center mt-4 row">
+                                            <div class="col-6">
+                                                <form action="{{ route('reservations.waiting_to_reserved', $reservation->id) }}" method="post">
+                                                    @csrf
+                                                    <button class="btn btn-success d-block mx-auto">予約する</button>
+                                                </form>
+                                            </div>
+                                            <div class="col-6">
+                                                <form action="{{ route('reservations.destroy', $reservation->id) }}" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button class="btn btn-danger d-block mx-auto">キャンセルする</button>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
+                                @elseif($reservation->status == 3)
+                                    <span>キャンセル済み<br></span>
                                 @endif
                                 <div class="collapse" id="collapse{{ $reservation->id }}">
                                     <div class="card card-body">
-                                        <form action="{{ route('reservations.update', $reservation) }}" method="post">
+                                        <form action="{{ route('reservations.update', $reservation->id) }}" method="post">
                                             @csrf
                                             @method('put')
                                             <table class="table">
@@ -104,12 +142,16 @@
                                                     <td><input type="number" name="room" value="{{ $reservation->room }}" class="form-control" min="1" max="{{ $reservation->plan->room }}"></td>
                                                 </tr>
                                             </table>
+                                            <input type="hidden" name="plan_id" value="{{ $reservation->plan_id }}">
+                                            <input type="hidden" name="user_id" value="{{ $reservation->user_id }}">
+                                            <input type="hidden" name="demand" value="{{ $reservation->demand }}">
+                                            <input type="hidden" name="token" value="{{ $reservation->token }}">
+                                            <input type="hidden" name="status" value="{{ $reservation->status }}">
                                             <button type="submit" class="btn btn-primary text-light d-block mx-auto">内容を保存する</button>
                                         </form>
                                     </div>
                                 </div>
                             </li>
-                            <li class="list-group-item">登録日：{{ $reservation->updated_at }}</li>
                         </ul>
                         <br>
                     @endforeach
