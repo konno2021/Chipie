@@ -57,7 +57,7 @@
             {{-- 宿管理者 --}}
         @elseif($user_status === 3)
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="/admin">Chipie管理者</a>
+                <a class="navbar-brand" href="{{route('admin_top')}}">Chipie管理者</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>

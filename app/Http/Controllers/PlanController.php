@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Plan;
+use App\Inn;
 use Illuminate\Http\Request;
 
 class PlanController extends Controller
@@ -14,7 +15,9 @@ class PlanController extends Controller
      */
     public function index()
     {
-        //
+        $plan_lists=array();
+        $plan_lists=plan::with('inn')->get();
+        return view('plan.plan_list', ['plan_lists'=>$plan_lists]);
     }
 
     /**
@@ -24,7 +27,9 @@ class PlanController extends Controller
      */
     public function create()
     {
-        //
+        $inn_lists=array();
+        $inn_lists=Inn::all();
+        return view('plan.create', ['inn_lists'=>$inn_lists]);
     }
 
     /**
@@ -35,7 +40,9 @@ class PlanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $plan= new \App\plan;
+        $plan->create($request->all());
+        return redirect('/admin');
     }
 
     /**
@@ -46,7 +53,8 @@ class PlanController extends Controller
      */
     public function show(Plan $plan)
     {
-        //
+        $plan=plan::with('inn')->first();
+        return view('plan.plan_show', ['plan'=>$plan]);
     }
 
     /**
@@ -57,7 +65,7 @@ class PlanController extends Controller
      */
     public function edit(Plan $plan)
     {
-        //
+        return view('plan.plan_edit', ['plan'=>$plan]);
     }
 
     /**
@@ -69,7 +77,8 @@ class PlanController extends Controller
      */
     public function update(Request $request, Plan $plan)
     {
-        //
+        $plan->update($request->all());
+        return redirect('/admin');
     }
 
     /**
@@ -80,6 +89,7 @@ class PlanController extends Controller
      */
     public function destroy(Plan $plan)
     {
-        //
+        $plan->delete();
+        return redirect(route('admin_top'));
     }
 }

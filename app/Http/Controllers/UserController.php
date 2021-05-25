@@ -72,7 +72,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('user.show', ['user'=>$user]);
     }
 
     /**
@@ -116,9 +116,9 @@ class UserController extends Controller
         
     }
 
-    public function destroy_request($id)
-    {
-        $inn_request=Inn::find($id);
+    public function destroy_request(Inn $inn_request_list)
+    {   
+        $inn_request=Inn::find($inn_request_list->id);
         $inn_request->delete();
         return redirect('/');
     }

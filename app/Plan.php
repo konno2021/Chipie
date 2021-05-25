@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Plan extends Model
 {
+    protected $fillable=['inn_id','plan_name','price', 'description', 'room', 'ended_at', 'started_at' ] ;
+
     public function posts()
     {
         return $this->hasMany(Post::class);

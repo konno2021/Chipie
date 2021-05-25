@@ -39,13 +39,6 @@
                                 
                             </button>
                     </form> --}}
-                    <form method="post" action="{{route('inns.destroy', $inn)}}">
-                        @csrf
-                        @method('delete')
-                            <button class="btn btn-danger">削除
-                                        
-                            </button>
-                    </form>
                     </div>
             </td>
 
