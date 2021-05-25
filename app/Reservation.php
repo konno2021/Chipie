@@ -16,4 +16,5 @@ class Reservation extends Model
         return $this->belongsTo(Plan::class);
     }
     
+    protected $fillable = ['plan_id', 'user_id', 'room', 'check_in', 'check_out', 'demand', 'token', 'status'];
 }
