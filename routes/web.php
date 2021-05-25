@@ -24,6 +24,7 @@ Route::resource('plans', 'PlanController');
 Route::resource('reservations', 'ReservationController', ['except' => ['create']]);
 Route::get('reservations/{plan}/create', 'ReservationController@create')->name('reservations.create');
 Route::post('reservations/{plan}/create/register', 'ReservationController@create_register')->name('reservations.create_register');
+Route::post('reservations/{id}/waiting_to_reserved', 'ReservationController@waiting_to_reserved')->name('reservations.waiting_to_reserved');
 Route::get('inn/request_list', 'InnController@index_request_list')->name('inn.request_list');
 Route::get('inn/list', 'InnController@index_list')->name('inn.list');
 Route::get('inn_admin', 'PlanController@index')->name('inn.admin');

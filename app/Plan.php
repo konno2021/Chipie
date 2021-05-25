@@ -22,6 +22,4 @@ class Plan extends Model
     {
         return $this->belongsTo(Inn::class);
     }
-
-    protected $fillable = ['inn_id', 'plan_name', 'price', 'description', 'room', 'started_at', 'ended_at'];
 }

@@ -11,7 +11,22 @@ use \App\plan;
 class HomeController extends Controller
 {
     public function top(){
-        return view('home/top');
+        // inn_idをkeyに持つプランの連想配列を作成
+        $query_p = Plan::query();
+        $plans = [];
+        $ok_id = [];
+        foreach($query_p->get() as $plan){
+            if(array_key_exists($plan->inn_id, $plans)){
+                array_push($plans[$plan->inn_id], $plan); 
+            }
+            else{
+                $plans[$plan->inn_id] = array($plan);
+                $ok_id[$plan->inn_id] = $plan->inn_id;
+            }
+        }
+        // ランダムに3件取得
+        $inns = Inn::whereIn('id', $ok_id)->inRandomOrder()->take(3)->get();
+        return view('home/top', ['inns' => $inns]);
     }
 
     public function mypage()
