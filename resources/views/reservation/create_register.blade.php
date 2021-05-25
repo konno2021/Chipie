@@ -2,7 +2,7 @@
 
 @section('content')
     <h4 class="m-3">予約内容確認画面</h4>
-    <form action="{{ route('reservations.store', $reservation) }}" method="post">
+    <form action="{{ route('reservations.store') }}" method="post">
         @csrf
     <div class="card font-weight-bold">
         <h3 class="card-header pl-5">箱根旅館</h3>

@@ -14,7 +14,7 @@ class PlanController extends Controller
      */
     public function index()
     {
-        //
+        return view('inn_admin');
     }
 
     /**
@@ -24,7 +24,7 @@ class PlanController extends Controller
      */
     public function create()
     {
-        //
+        return view ('plan/plan_create');
     }
 
     /**
@@ -35,7 +35,9 @@ class PlanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $plan = new \App\Plan;
+        $plan->create($request->all());
+        return redirect('/inn_admin');
     }
 
     /**
@@ -57,7 +59,7 @@ class PlanController extends Controller
      */
     public function edit(Plan $plan)
     {
-        //
+        return view ('plan/plan_edit',  ['plan'=> $plan]);
     }
 
     /**
@@ -69,7 +71,8 @@ class PlanController extends Controller
      */
     public function update(Request $request, Plan $plan)
     {
-        //
+        $plan->update($request->all());
+        return redirect(route('inn_admin'));
     }
 
     /**
@@ -80,6 +83,7 @@ class PlanController extends Controller
      */
     public function destroy(Plan $plan)
     {
-        //
+        $plan->delete();
+        return redirect(route('inn_admin'));
     }
 }

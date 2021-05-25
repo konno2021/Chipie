@@ -109,7 +109,7 @@ class ReservationController extends Controller
         $check_out = $request->check_out;
         $room = $request->room;
         $demand = $request->demand;
-        return view('reservation/create_register', ['plan' => $plan, 'check_in' => $check_in, 'check_out' => $check_out, 'room' => $room, 'is_ok' => $is_ok]);
+        return view('reservation/create_register', ['plan' => $plan, 'check_in' => $check_in, 'check_out' => $check_out, 'room' => $room, 'is_ok' => $is_ok, 'demand' => $demand]);
     }
 
     /**
@@ -122,7 +122,7 @@ class ReservationController extends Controller
     {
         $reservation = new \App\Reservation;
         $reservation->create($request->all());
-        return redirect('/');
+        return redirect('mypage');
     }
 
     /**

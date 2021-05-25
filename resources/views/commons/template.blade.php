@@ -55,6 +55,28 @@
             </nav>
         @elseif($user_status === 2)
             {{-- 宿管理者 --}}
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="/inn_admin">Chipie宿管理者</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{ route('inns.edit') }}">宿アカウント変更・削除</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{ route('plans.create') }}">プラン登録</a>
+                    </li>
+                    <li class="nav-item">
+                        <form action="{{ route('logout') }}" method="post" name="logout_form">
+                            @csrf
+                            <a class="nav-link" href="javascript:logout_form.submit()">ログアウト</a>
+                        </form>
+                    </li>
+                </ul>
+                </div>
+            </nav>
         @elseif($user_status === 3)
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="/admin">Chipie管理者</a>
