@@ -12,8 +12,7 @@ class HomeController extends Controller
 
     public function mypage()
     {
-        $reservations = \Auth::user()->reservations()
-            ->orderBy('created_at', 'desc')->paginate(5);
-            return view('home/mypage',['reservations'=> $reservations]);
+        $reservations = \Auth::user()->reservations()->with('plan.inn')->orderBy('created_at', 'desc')->get();
+        return view('home/mypage',['reservations'=> $reservations]);
     }
 }
