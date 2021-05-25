@@ -121,7 +121,7 @@ class ReservationController extends Controller
     {
         $reservation = new \App\Reservation;
         $reservation->create($request->all());
-        return redirect('/');
+        return redirect('mypage');
     }
 
     /**

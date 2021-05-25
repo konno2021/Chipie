@@ -1,6 +1,7 @@
 @extends('commons.template')
 
 @section('content')
+
 <h1 class="text-center py-3">プランの修正</h1>
 <form action="{{route('plans.update', $plan->id)}}" method="POST">
 @csrf
@@ -56,8 +57,6 @@
         <p class="font-weight-bold">備考</p>
         <textarea rows="4" name="remarks" class="form-control">{{ old('remarks', $plan->remaeks) }}</textarea>
     </div>
-        {{-- <label for="exampleInputPassword1">備考</label>
-        <input type="text"  id="exampleInputPassword1" name="remarks" value="{{old('remarks')}}"> --}}
 <br>
     <div class="form-group font-weight-bold col ">
      <button type="submit" class="btn btn-primary col">変更を保存</button>

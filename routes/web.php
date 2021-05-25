@@ -18,7 +18,7 @@ Auth::routes();
 Route::get('mypage', 'HomeController@mypage')->name('mypage');
 Route::resource('inns', 'InnController');
 Route::resource('users','UserController');
-Route::resource('users', 'UserController');
+Route::resource('plans', 'PlanController');
 Route::resource('posts', 'PostController');
 Route::resource('plans', 'PlanController');
 Route::resource('reservations', 'ReservationController', ['except' => ['create']]);
@@ -26,6 +26,7 @@ Route::get('reservations/{plan}/create', 'ReservationController@create')->name('
 Route::post('reservations/{plan}/create/register', 'ReservationController@create_register')->name('reservations.create_register');
 Route::get('inn/request_list', 'InnController@index_request_list')->name('inn.request_list');
 Route::get('inn/list', 'InnController@index_list')->name('inn.list');
+Route::get('inn_admin', 'PlanController@index')->name('inn.admin');
 // 仮
 
 Route::get('admin', function(){return view('home/admin');})->name('admin');

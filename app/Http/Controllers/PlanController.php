@@ -15,9 +15,15 @@ class PlanController extends Controller
      */
     public function index()
     {
-        $plan_lists=array();
-        $plan_lists=plan::with('inn')->get();
-        return view('plan.plan_list', ['plan_lists'=>$plan_lists]);
+        $user_status = Controller::get_user_status();
+        if($user_status === 2) {
+          return view('inn_admin');
+        }
+        elseif($user_status === 3) {
+          $plan_lists=array();
+          $plan_lists=plan::with('inn')->get();
+          return view('plan.plan_list', ['plan_lists'=>$plan_lists]);
+        }
     }
 
     /**
@@ -27,9 +33,15 @@ class PlanController extends Controller
      */
     public function create()
     {
-        $inn_lists=array();
-        $inn_lists=Inn::all();
-        return view('plan.create', ['inn_lists'=>$inn_lists]);
+        $user_status = Controller::get_user_status();
+        if($user_status === 2) {
+          return view ('plan/plan_create');
+        }
+        elseif($user_status === 3) {
+          $inn_lists=array();
+          $inn_lists=Inn::all();
+          return view('plan.create', ['inn_lists'=>$inn_lists]);
+        }
     }
 
     /**
@@ -40,9 +52,9 @@ class PlanController extends Controller
      */
     public function store(Request $request)
     {
-        $plan= new \App\plan;
+        $plan = new \App\Plan;
         $plan->create($request->all());
-        return redirect('/admin');
+        return redirect('/inn_admin');
     }
 
     /**
@@ -77,8 +89,14 @@ class PlanController extends Controller
      */
     public function update(Request $request, Plan $plan)
     {
+        $user_status = Controller::get_user_status();
         $plan->update($request->all());
-        return redirect('/admin');
+        if($user_status === 2) {
+          return redirect(route('inn_admin'));
+        }
+        elseif($user_status === 3) {
+          return redirect('/admin');
+        }
     }
 
     /**
@@ -89,7 +107,13 @@ class PlanController extends Controller
      */
     public function destroy(Plan $plan)
     {
-        $plan->delete();
-        return redirect(route('admin_top'));
+        $user_status = Controller::get_user_status();
+          $plan->delete();
+        if($user_status === 2) {
+          return redirect(route('inn_admin'));
+        }
+      elseif ($user_status === 3) {
+          return redirect(route('admin_top'));
+      }
     }
 }
