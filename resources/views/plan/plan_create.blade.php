@@ -34,8 +34,7 @@
 						<input type="date" name="ended_at" value="{{ old('ended_at') }}"></label>
 					</div>
 				</div>
-			</div>
-			
+			</div>	
 		</div>
         <button type="submit" class="btn btn-success d-block mx-auto">プランを登録する</button>
     </form>
