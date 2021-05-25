@@ -53,7 +53,9 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $reservation = new \App\Reservation;
+        $reservation->create($request->all());
+        return redirect('/');
     }
 
     /**
