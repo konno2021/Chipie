@@ -16,30 +16,30 @@
 	</thead>
 
 <tbody>
-@foreach ($inn_request_lists as $inn_request_list)
+@foreach ($inn_request_lists as $inn)
 		<tr v-for="(user,index) in users" v-bind:key="index">
-			<td>{{$inn_request_list->name}}</td>
-			<td>{{$inn_request_list->inn_code_id}}</td>
-			<td>{{$inn_request_list->address}}</td>
-            <td>{{$inn_request_list->tel}}</td>
-            <td>{{$inn_request_list->email}}</td>
+			<td>{{$inn->name}}</td>
+			<td>{{$inn->inn_code_id}}</td>
+			<td>{{$inn->address}}</td>
+            <td>{{$inn->tel}}</td>
+            <td>{{$inn->email}}</td>
             <td>
                 <div class="form-row">
                 <form method="post" action="{{route('users.store')}}">
                     @csrf
-                    <input type="hidden" name="password" value="{{$inn_request_list->password}}">
-                    <input type="hidden" name="inn_id" value="{{$inn_request_list->id}}">
-                    <input type="hidden" name="name" value="{{$inn_request_list->name}}">
-                    <input type="hidden" name="address" value="{{$inn_request_list->address}}">
-                    <input type="hidden" name="tel" value="{{$inn_request_list->tel}}">
-                    <input type="hidden" name="email" value="{{$inn_request_list->email}}">
+                    <input type="hidden" name="password" value="{{$inn->password}}">
+                    <input type="hidden" name="inn_id" value="{{$inn->id}}">
+                    <input type="hidden" name="name" value="{{$inn->name}}">
+                    <input type="hidden" name="address" value="{{$inn->address}}">
+                    <input type="hidden" name="tel" value="{{$inn->tel}}">
+                    <input type="hidden" name="email" value="{{$inn->email}}">
                         <button class="btn btn-primary">承認
                             
                         </button>
                 </form>
-                <form method="post" action="{{route('users.destroy_request', $inn_request_list->id)}}">
+                <form method="post" action="{{route('inns.destroy', $inn)}}">
+                    @method('delete')
                     @csrf
-                    @method('DELETE')
                         <button class="btn btn-danger">却下
                                     
                         </button>

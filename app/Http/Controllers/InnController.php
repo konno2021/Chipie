@@ -9,6 +9,8 @@ use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+use function PHPUnit\Framework\assertFalse;
+
 class InnController extends Controller
 {
     /**
@@ -171,6 +173,18 @@ class InnController extends Controller
         return view('inn/inn_show', ['inn' => $inn, 'plans' => $plans]);
     }
 
+    public function show_list($id)
+    {
+        $inn=Inn::with('inn_code')->find($id);
+        return view('inn.inn_show_list', ['inn'=>$inn]);
+    }
+
+    public function show_request_list($id)
+    {
+        $inn=Inn::with('inn_code')->find($id);
+        return view('inn.inn_request_show', ['inn'=>$inn]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -203,10 +217,16 @@ class InnController extends Controller
      */
     public function destroy(Inn $inn)
     {
-        $user=User::where('inn_id', $inn->id)->first();
-        $user->deleted_at=date("Y-m-d H:i:s");
-        $user->save();
-        $inn->delete();
-        return redirect(route('inn.list'));
+            if($inn->is_ok===0){
+                $inn=Inn::find($inn->id);
+                $inn->delete();
+                return redirect('/admin');
+            }elseif($inn->is_ok===1){
+            $user=User::where('inn_id', $inn->id)->first();
+            $user->deleted_at=date("Y-m-d H:i:s");
+            $user->save();
+            $inn->delete();
+            return redirect(route('inn.list'));
+        }
     }
 }

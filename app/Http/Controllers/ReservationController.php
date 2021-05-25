@@ -65,10 +65,9 @@ class ReservationController extends Controller
 
         // 自分の分の部屋数を加算
         while($begin <= $end){
-            $resreved_room[$begin->format('Y-m-d')] = $request->room;
+            $reserved_room[$begin->format('Y-m-d')] = $request->room;
             $begin->modify('+1 days');
         }
-        
         // 他の人が予約している部屋数を加算
         $is_ok = true;
         foreach($reservations as $reservation){
@@ -84,7 +83,7 @@ class ReservationController extends Controller
             }
             $room = $reservation->room;
             while($begin <= $end){
-                $resreved_room[$begin->format('Y-m-d')] += $room;
+                $reserved_room[$begin->format('Y-m-d')] += $room;
                 if($reserved_room[$begin->format('Y-m-d')] > $plan->room){
                     $is_ok = false;
                     break;
@@ -109,7 +108,7 @@ class ReservationController extends Controller
         $check_out = $request->check_out;
         $room = $request->room;
         $demand = $request->demand;
-        return view('reservation/create_register', ['plan' => $plan, 'check_in' => $check_in, 'check_out' => $check_out, 'room' => $room, 'is_ok' => $is_ok, 'demand' => $demand]);
+        return view('reservation/create_register', ['plan' => $plan, 'check_in' => $check_in, 'check_out' => $check_out, 'room' => $room, 'demand' => $demand, 'is_ok' => $is_ok]);
     }
 
     /**
