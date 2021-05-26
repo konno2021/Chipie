@@ -31,7 +31,7 @@
                 <h6 class="text-muted text-center">※予約が確定していないため、この画面で時間経過すると予約が埋まってしまう場合がございます。
                 <br>その場合、キャンセル待ち予約となります。予めご了承ください。</h6>
             @elseif($is_ok === false)
-                <li  class="list-group-item text-danger">キャンセル待ちで予約可能</li>
+                <li  class="list-group-item text-center text-danger">キャンセル待ちで予約可能</li>
             @endif
             </ul>
         </div>
