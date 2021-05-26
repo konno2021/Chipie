@@ -191,7 +191,9 @@ class InnController extends Controller
     {
         $user_status = Controller::get_user_status();
         if($user_status === 0 || $user_status === 1){
-            $plans = Plan::where('inn_id', $inn->id)->with('posts')->get();
+            $plans = Plan::where('inn_id', $inn->id)->with(['posts' => function ($query){
+                $query->orderBy('created_at', 'desc');
+            }])->get();
             return view('inn/inn_show', ['inn' => $inn, 'plans' => $plans]);
         }
         return back();
