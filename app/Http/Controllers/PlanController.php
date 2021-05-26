@@ -17,12 +17,13 @@ class PlanController extends Controller
     {
         $user_status = Controller::get_user_status();
         if($user_status === 2) {
-          return view('inn_admin');
+            $plans = Plan::where('inn_id', \Auth::user()->inn_id)->paginate(10);
+            return view('home/inn_admin', ['plans' => $plans]);
         }
         elseif($user_status === 3) {
-          $plan_lists=array();
-          $plan_lists=plan::with('inn')->get();
-          return view('plan.plan_list', ['plan_lists'=>$plan_lists]);
+            $plan_lists=array();
+            $plan_lists=plan::with('inn')->get();
+            return view('plan.plan_list', ['plan_lists'=>$plan_lists]);
         }
     }
 
@@ -35,12 +36,12 @@ class PlanController extends Controller
     {
         $user_status = Controller::get_user_status();
         if($user_status === 2) {
-          return view ('plan/plan_create');
+            return view ('plan/plan_create');
         }
         elseif($user_status === 3) {
-          $inn_lists=array();
-          $inn_lists=Inn::all();
-          return view('plan.create', ['inn_lists'=>$inn_lists]);
+            $inn_lists=array();
+            $inn_lists=Inn::all();
+            return view('plan.create', ['inn_lists'=>$inn_lists]);
         }
     }
 
@@ -52,6 +53,15 @@ class PlanController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'inn_id' => 'required',
+            'plan_name' => 'required|max:255',
+            'price' => 'required|min:0',
+            'description' => 'required|max:255',
+            'room' => 'required',
+            'started_at' => 'required',
+            'ended_at' => 'required',
+        ]);
         $plan = new \App\Plan;
         $plan->create($request->all());
         return redirect('/inn_admin');
@@ -89,6 +99,15 @@ class PlanController extends Controller
      */
     public function update(Request $request, Plan $plan)
     {
+        $this->validate($request, [
+            'inn_id' => 'required',
+            'plan_name' => 'required|max:255',
+            'price' => 'required|min:0',
+            'description' => 'required|max:255',
+            'room' => 'required',
+            'started_at' => 'required',
+            'ended_at' => 'required',
+        ]);
         $user_status = Controller::get_user_status();
         $plan->update($request->all());
         if($user_status === 2) {
@@ -108,12 +127,12 @@ class PlanController extends Controller
     public function destroy(Plan $plan)
     {
         $user_status = Controller::get_user_status();
-          $plan->delete();
+        $plan->delete();
         if($user_status === 2) {
-          return redirect(route('inn_admin'));
+            return redirect(route('inn_admin'));
         }
-      elseif ($user_status === 3) {
-          return redirect(route('admin_top'));
-      }
+        elseif ($user_status === 3) {
+            return redirect(route('admin_top'));
+        }
     }
 }
