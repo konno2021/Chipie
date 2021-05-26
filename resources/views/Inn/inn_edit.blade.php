@@ -61,7 +61,7 @@
     </div>
      <div class="col">
         <label for="inputAddress"class="font-weight-bold">宿のHP</label>
-      <input type="text" class="form-control" placeholder="https://" name="hp" value="{{old('hp', $inn->hp)}}">
+      <input type="url" class="form-control" placeholder="https://" name="hp" value="{{old('hp', $inn->hp)}}">
     </div> 
 <br>
      <button type="submit" class="btn btn-primary col">更新</button>

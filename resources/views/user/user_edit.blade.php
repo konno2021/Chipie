@@ -15,7 +15,7 @@
     </div>
     <div class="form-group">
         <label for="tel">電話番号</label>
-        <input type="tel" name="tel" value="{{ old('tel', $user->tel) }}" class="form-control">
+        <input type="tel" name="tel" value="{{ old('tel', $user->tel) }}"placeholder="012-3456-7890" class="form-control">
     </div>
     <div class="form-group">
         <label for="email">メールアドレス</label>

@@ -2,32 +2,29 @@
 
 @section('content')
 <h1 class="text-center py-3">{{$user->name}}さんの情報</h1>
-
-<div class="text-xl-center">
-
-    <div class="form-group">
-        <p>氏名:{{$user->name}}</p>
-    </div>
-    <div class="form-group">
-        <p>住所:{{$user->address}}</p>
-    </div>
-    <div class="form-group">
-        <p>電話番号:{{$user->tel}}</p>
-    </div>
-    <div class="form-group">
-        <p>メールアドレス:{{$user->email}}</p>
-    </div>
-    <div class="form-group">
-        <p>誕生日:{{$user->birthday}}</p>
-    </div>
-    
-    <div class="form-row center ">
-    <a href="{{route('users.edit', $user->id)}}"><button type="submit" class="btn btn-primary mx-auto d-block">変更</button></a>
-    <form method="post" action="{{route('users.destroy', $user->id)}}">
-        @csrf
-        @method('DELETE')
-            <button class="btn btn-danger">削除</button>
-    </form>
+<div class="card" style="width: 100;">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">名前：{{$user->name}}</li>
+      <li class="list-group-item">住所：{{$user->address}}</li>
+      <li class="list-group-item">電話番号：{{$user->tel}}</li>
+      <li class="list-group-item">メールアドレス：{{$user->email}}</li>
+      <li class="list-group-item">生年月日：{{$user->birthday}}</li>
+    </ul>
+    <div class="card-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 text-center">
+                    <button  class="btn btn-primary "><a href="{{route('users.edit', $user->id)}}" style=color:white>変更</a></button>
+                </div>
+                <div class="col-6 text-center">
+                        <form method="post" action="{{route('users.destroy', $user->id)}}">
+                        @csrf
+                        @method('delete')
+                            <button class="btn btn-danger">削除</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

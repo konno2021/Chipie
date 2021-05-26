@@ -8,6 +8,7 @@ use App\Plan;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 use function PHPUnit\Framework\assertFalse;
 
@@ -153,6 +154,16 @@ class InnController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name'  => 'required|max:255',
+            'address' => 'required|unique:inns|max:255',
+            'tel' => 'regex:/^[0-9\-]+$/i|max:14|required',
+            'email' => 'required|email|unique:inns',
+            'check_in' => 'required',
+            'check_out' => 'required',
+            // 'hp' => 'url',//これがあるとURLが必須になってしまう
+            'password' => 'required|between:8,20',
+        ]);
         $inn= new \App\Inn;
         $password = Hash::make($request->password);
         $password = array('password' => $password);
@@ -205,7 +216,18 @@ class InnController extends Controller
      */
     public function update(Request $request, Inn $inn)
     {
+        $user=User::where('inn_id', $inn->id)->first();
+        $this->validate($request, [
+            'name'  => 'required|max:255',
+            'address' => ['required', 'max:255', Rule::unique('inns')->ignore($inn->id), Rule::unique('users')->ignore($user->id)],
+            'tel' => 'regex:/^[0-9\-]+$/i|max:14|required',
+            'email' => ['required', 'email', Rule::unique('inns')->ignore($inn->id), Rule::unique('users')->ignore($user->id)],
+            'check_in' => 'required',
+            'check_out' => 'required',
+        ]);
         $inn->update($request->all());
+        
+        $user->update($request->all());
         return redirect(route('inn.list'));
     }
 

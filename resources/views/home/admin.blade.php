@@ -1,7 +1,18 @@
 @extends('commons.template')
 
 @section('content')
-<h2 class="mb-3 pt-3"><a href="{{route('users.index')}}">◇会員の一覧</a></h2>
+<style>
+h2 {
+  color: black;/*文字色*/
+  padding: 0.5em 1em;/*上下の余白*/
+  border-top: solid 3px darkslategrey;/*上線*/
+  border-bottom: solid 3px darkslategrey;/*下線*/
+  background: whitesmoke;/*背景色*/
+}
+</style>
+
+<h2 class=" mt-3 mb-3 pt-3">会員 (新着)</h2>
+<button><a href="{{route('users.index')}}">会員一覧はこちら</a></button>
 <table class="table table-bordered">
 	<thead  class="thead-dark">
 		<tr class="pd-2">
@@ -28,8 +39,10 @@
             @endforeach
     </tbody>
 </table>
-
-<h2 class="mb-3 pt-3"><a href="{{route('inn.request_list')}}">◇宿アカウント登録承認申請一覧</a></h2>
+<div class="pt-5 pb-5">
+</div>
+<h2 class="mb-3 pt-3 ">宿アカウント登録承認申請 (新着)</h2>
+<button><a href="{{route('inn.request_list')}}">申請一覧はこちら</a></button>
 <table class="table table-bordered">
 	<thead  class="thead-dark">
 		<tr class="pd-2">
@@ -58,7 +71,11 @@
 </tbody>     
 </table>
 
-<h2 class="mb-3 pt-3"><a href="{{route('inn.list')}}">◇宿アカウント一覧</a></h2>
+<div class="pt-5 pb-5">
+</div>
+
+<h2 class="mb-3 pt-3">宿アカウント (新着)</h2>
+    <button><a href="{{route('inn.list')}}">宿アカウント一覧はこちら</a></button>
 <table class="table table-bordered">
 	<thead  class="thead-dark">
 		<tr class="pd-2">
@@ -88,7 +105,11 @@
 </tbody> 
 </table>
 
-<h2 class="mb-3 pt-3"><a href="{{route('plans.index')}}">◇プラン一覧</a></h2>
+<div class="pt-5 pb-5">
+</div>
+
+<h2 class="mb-3 pt-3">プラン (新着)</h2>
+    <button><a href="{{route('plans.index')}}">プラン一覧はこちら</a></button>
 <table class="table table-bordered">
 	<thead  class="thead-dark">
 		<tr class="pd-2">
@@ -117,5 +138,5 @@
 </tbody> 
 </table>
 
-<button type="button" class="btn btn-success btn-lg"><a href="{{route('plans.create')}}">宿プランの登録</a></button>
+<button class="btn btn-primary btn-lg"><a href="{{route('plans.create')}}" style="color:white">宿プランの登録</a></button>
 @endsection

@@ -2,35 +2,34 @@
 
 @section('content')
 <h1 class="text-center py-3">{{$inn->name}}の情報</h1>
-<div class="text-xl-center">
-    <div class="form-group">
-        <p>宿名:{{$inn->name}}</p>
-    </div>
-    <div class="form-group">
-        <p>分類グループ:{{$inn->inn_code->inn_code}}({{$inn->inn_code_id}})</p>
-    </div>
-    <div class="form-group">
-        <p>住所:{{$inn->address}}</p>
-    </div>
-    <div class="form-group">
-        <p>メールアドレス:{{$inn->email}}</p>
-    </div>
-    <div class="form-group">
-        <p>電話番号:{{$inn->tel}}</p>
-    </div>
-    <div class="form-group">
-        <p>チェックイン時間:{{$inn->check_in}}</p>
-    </div>
-    <div class="form-group">
-        <p>チェックアウト時間:{{$inn->check_out}}</p>
-    </div>
-    <div class="form-group">
-        <p>宿のHP:{{$inn->hp}}</p>
-    </div>
-    
-    <div class="form-row center ">
-    <a href="{{route('inns.edit', $inn->id)}}"><button type="submit" class="btn btn-primary mx-auto d-block">変更</button></a>
-    <a href="{{route('inns.destroy', $inn->id)}}"><button type="submit" class="btn btn-danger mx-auto d-block">削除</button></a>
+
+<div class="card" style="width: 100;">
+    <div class="iframely-embed mb-4"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0; width:100%;"><a href="{{$inn->hp}}" data-iframely-url="//cdn.iframe.ly/VjMLuRM?iframe=card-small"></a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script>    <div class="card-body">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">宿名：{{$inn->name}}</li>
+      <li class="list-group-item">分類グループ：{{$inn->inn_code->inn_code}}({{$inn->inn_code_id}})</li>
+      <li class="list-group-item">住所：{{$inn->address}}</li>
+      <li class="list-group-item">メールアドレス：{{$inn->email}}</li>
+      <li class="list-group-item">電話番号：{{$inn->tel}}</li>
+      <li class="list-group-item">チェックイン時間：{{$inn->check_in}}</li>
+      <li class="list-group-item">チェックアウト時間：{{$inn->check_out}}</li>
+      <li class="list-group-item">宿のHP：{{$inn->hp}}</li>
+    </ul>
+    <div class="card-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 text-center">
+                    <button  class="btn btn-primary "><a href="{{route('inns.edit', $inn->id)}}" style=color:white>変更</a></button>
+                </div>
+                <div class="col-6 text-center">
+                        <form method="post" action="{{route('inns.destroy', $inn->id)}}">
+                        @csrf
+                        @method('delete')
+                            <button class="btn btn-danger">削除</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
