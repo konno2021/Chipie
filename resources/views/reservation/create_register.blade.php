@@ -15,23 +15,23 @@
         <div class="card-body">
             <h4 class="card-title">リラックスプラン</h4>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">価格:#</li>
-                <li class="list-group-item">概要:#</li>
-                <li class="list-group-item">部屋数:#</li>
-                <li class="list-group-item">チェックイン時間:#</li>
-                <li class="list-group-item">チェックアウト時間:#</li>
-                <li class="list-group-item">合計金額:#</li>
-                <li class="list-group-item">その他ご要望:#</li>
+                <li class="list-group-item">価格: {{ $plan->price }}</li>
+                <li class="list-group-item">概要: {{ $plan->description }}</li>
+                <li class="list-group-item">部屋数: {{ $plan->room }}</li>
+                <li class="list-group-item">チェックイン時間: {{ $plan->check_in }}</li>
+                <li class="list-group-item">チェックアウト時間: {{ $plan->check_out }}</li>
+                <li class="list-group-item">合計金額: {{ $sum_price }}</li>
+                <li class="list-group-item">その他ご要望: {{ $demand }}</li>
             </ul>
         </div>
         <div class="card-body">
             <h4 class="card-title">予約者個人情報</h4>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">氏名:#</li>
-                <li class="list-group-item">電話番号:#</li>
-                <li class="list-group-item">メールアドレス:#</li>
-                <li class="list-group-item">住所:#</li>
-                <li class="list-group-item">生年月日:#</li>
+                <li class="list-group-item">氏名: {{ $user->name }}</li>
+                <li class="list-group-item">電話番号: {{ $user->tel }}</li>
+                <li class="list-group-item">メールアドレス: {{ $user->email }}</li>
+                <li class="list-group-item">住所: {{ $user->address }}</li>
+                <li class="list-group-item">生年月日: {{ $user->birth }}</li>
             </ul>
             <p><a href="{{ route('users.edit', Auth::user()) }}">個人情報を編集する</a></p>
         </div>
