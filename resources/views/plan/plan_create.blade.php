@@ -2,15 +2,18 @@
 @extends('commons.template')
 
 @section('content')
+	<br>
     <h4>プラン登録画面</h4>
-    <form action="{{ route('plan.store', $plan) }}" method="post">
+    <form action="{{ route('plans.store') }}" method="post">
     @csrf
 		<div class="form-row ml-3 mr-3">
 			<div class="col-8">
 				<div class="form-row font-weight-bold">
+						{{-- 宿ID --}}
+					<input type="hidden" name="inn_id" id="inn_id" value="{{ Auth::user()->inn_id }}">
 					<div class="form-group col-4">
 						<label for="plan_name">プラン名
-						<input type="name" name="plan_name" id="plan_name" value="{{ old('plan_name') }}"></label>
+						<input type="text" name="plan_name" id="plan_name" value="{{ old('plan_name') }}"></label>
 					</div>
 					<div class="form-group col-4">
 						<label for="price">価格

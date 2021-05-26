@@ -4,7 +4,9 @@
 <h1 class="text-center py-3">プランの登録</h1>
 <form action="{{route('plans.store')}}" method="POST">
 @csrf
-
+@if(Auth::user()->get_user_status() === 2)
+    <input type="hidden" name="inn_id" value="{{ Auth::user()->inn_id }}">
+@elseif(Auth::user()->get_user_status() === 3)
 <dl>
     <dd>
         <dt  class=" ml-3">宿名</dt>
@@ -15,7 +17,7 @@
             </select>
     </dd>
 </dl>
-
+@endif
     <div class="col">
             <label for="inputAddress"class="font-weight-bold  ">プラン名</label>
           <input type="text" name="plan_name" class="form-control  "  value="{{old('plan_name')}}">
