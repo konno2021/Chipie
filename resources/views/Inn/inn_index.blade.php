@@ -55,7 +55,5 @@
     {{-- 変更 --}}
 
 <a href="/" class="mb-2 ml-4">検索画面へ戻る</a>
-
-InnCodesTableSeeder
  
 @endsection
