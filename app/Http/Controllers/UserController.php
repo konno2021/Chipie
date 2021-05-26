@@ -60,7 +60,7 @@ class UserController extends Controller
             $user->is_admin=false;
             $user->deleted_at=null;
             $user->save();
-            return back();
+            return redirect('admin');
         }
     }
 

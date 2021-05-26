@@ -23,7 +23,11 @@
     
     <div class="form-row center ">
     <a href="{{route('users.edit', $user->id)}}"><button type="submit" class="btn btn-primary mx-auto d-block">変更</button></a>
-    <a href="{{route('users.destroy', $user->id)}}"><button type="submit" class="btn btn-danger mx-auto d-block">削除</button></a>
+    <form method="post" action="{{route('users.destroy', $user->id)}}">
+        @csrf
+        @method('DELETE')
+            <button class="btn btn-danger">削除</button>
+    </form>
     </div>
 </div>
 @endsection

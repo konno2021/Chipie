@@ -15,7 +15,7 @@
     </div>
     <div class="form-group">
         <label for="tel">電話番号</label>
-        <input type="tel" name="tel" value="{{ old('email') }}" class="form-control">
+        <input type="tel" name="tel" value="{{ old('tel') }}" class="form-control">
     </div>
     <div class="form-group">
         <label for="email">メールアドレス</label>
@@ -40,8 +40,8 @@
     <div class="form-group">
         <label for="is_admin">is_admin</label>
         <select name="is_admin">
-            <option value="false">会員</option>
-            <option value="true">管理者</option>
+            <option value="0">会員</option>
+            <option value="1">管理者</option>
         </select>
     </div>
     <button type="submit" class="btn btn-primary mx-auto d-block">登録</button>
