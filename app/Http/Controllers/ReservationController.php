@@ -109,7 +109,8 @@ class ReservationController extends Controller
         $check_out = $request->check_out;
         $room = $request->room;
         $demand = $request->demand;
-        return view('reservation/create_register', ['plan' => $plan, 'check_in' => $check_in, 'check_out' => $check_out, 'room' => $room, 'demand' => $demand, 'is_ok' => $is_ok]);
+        $sum_price = $request->sum_price;
+        return view('reservation/create_register', ['plan' => $plan, 'check_in' => $check_in, 'check_out' => $check_out, 'room' => $room, 'demand' => $demand, 'sum_price' => $sum_price, 'is_ok' => $is_ok]);
     }
 
     /**

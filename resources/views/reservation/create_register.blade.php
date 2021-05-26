@@ -13,27 +13,38 @@
         </div>
             <script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script>
         <div class="card-body">
-            <h4 class="card-title">{{ $plan->name }}</h4>
+            <h4 class="card-title">{{ $plan->plan_name }}</h4>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">価格: {{ $plan->price }}</li>
                 <li class="list-group-item">概要: {{ $plan->description }}</li>
                 <li class="list-group-item">部屋数: {{ $plan->room }}</li>
-                <li class="list-group-item">チェックイン時間: {{ $plan->check_in }}</li>
-                <li class="list-group-item">チェックアウト時間: {{ $plan->check_out }}</li>
+                <li class="list-group-item">チェックイン時間: {{ $check_in }}</li>
+                <li class="list-group-item">チェックアウト時間: {{ $check_out }}</li>
                 <li class="list-group-item">合計金額: {{ $sum_price }}</li>
                 <li class="list-group-item">その他ご要望: {{ $demand }}</li>
             </ul>
         </div>
         <div class="card-body">
+            <ul>
+            @if($is_ok === true)
+                <li  class="list-group-item text-center text-danger">ただいま予約可能</li><br>
+                <h6 class="text-muted text-center">※予約が確定していないため、この画面で時間経過すると予約が埋まってしまう場合がございます。
+                <br>その場合、キャンセル待ち予約となります。予めご了承ください。</h6>
+            @elseif($is_ok === false)
+                <li  class="list-group-item text-danger">キャンセル待ちで予約可能</li>
+            @endif
+            </ul>
+        </div>
+        <div class="card-body">
             <h4 class="card-title">予約者個人情報</h4>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">氏名: {{ $user->name }}</li>
-                <li class="list-group-item">電話番号: {{ $user->tel }}</li>
-                <li class="list-group-item">メールアドレス: {{ $user->email }}</li>
-                <li class="list-group-item">住所: {{ $user->address }}</li>
-                <li class="list-group-item">生年月日: {{ $user->birth }}</li>
+                <li class="list-group-item">氏名: {{ Auth::user()->name }}</li>
+                <li class="list-group-item">電話番号: {{ Auth::user()->tel }}</li>
+                <li class="list-group-item">メールアドレス: {{ Auth::user()->email }}</li>
+                <li class="list-group-item">住所: {{ Auth::user()->address }}</li>
+                <li class="list-group-item">生年月日: {{ Auth::user()->birthday }}</li>
+                <li class="list-group-item"><a href="{{ route('users.edit', Auth::user()) }}">個人情報を編集する</a></li>
             </ul>
-            <p><a href="{{ route('users.edit', Auth::user()) }}">個人情報を編集する</a></p>
         </div>
         <div class="container-fluid">
             <div class="row  mb-3">

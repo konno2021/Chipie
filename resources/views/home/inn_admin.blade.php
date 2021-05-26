@@ -20,7 +20,7 @@
             @foreach ($plans as $plan)
                 <tr v-for="(user,index) in users" v-bind:key="index">
                     <td>{{$plan->id}}</td>
-                    <td>{{$plan->name}}</td>
+                    <td>{{$plan->plan_name}}</td>
                     <td>{{$plan->price}}</td>
                     <td>{{$plan->description}}</td>
                     <td>{{$plan->room}}</td>

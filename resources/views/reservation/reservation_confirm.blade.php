@@ -65,7 +65,7 @@
 					<div class="card-body">
 						<h5 class="card-title text-center">合計金額</h5>
 						<p class="card-text" id="sum-price"></p>
-						<input type="hidden" id="hidden-sum-price" name="sum_price">
+						<input type="hidden" id="hidden-sum-price" name="sum_price" value="{{ old('sum_price') }}">
 					</div>
 				</div>
 			</div>
