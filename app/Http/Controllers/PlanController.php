@@ -36,7 +36,7 @@ class PlanController extends Controller
     {
         $user_status = Controller::get_user_status();
         if($user_status === 2) {
-            return view ('plan/plan_create');
+            return view ('plan/create');
         }
         elseif($user_status === 3) {
             $inn_lists=array();
@@ -111,7 +111,7 @@ class PlanController extends Controller
         $user_status = Controller::get_user_status();
         $plan->update($request->all());
         if($user_status === 2) {
-          return redirect(route('inn_admin'));
+          return redirect(route('inn_admin_top'));
         }
         elseif($user_status === 3) {
           return redirect('/admin');
@@ -129,7 +129,7 @@ class PlanController extends Controller
         $user_status = Controller::get_user_status();
         $plan->delete();
         if($user_status === 2) {
-            return redirect(route('inn_admin'));
+            return redirect(route('inn_admin_top'));
         }
         elseif ($user_status === 3) {
             return redirect(route('admin_top'));

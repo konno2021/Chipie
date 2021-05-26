@@ -5,7 +5,7 @@
     <form action="{{ route('reservations.store') }}" method="post">
         @csrf
     <div class="card font-weight-bold">
-        <h3 class="card-header pl-5">箱根旅館</h3>
+        <h3 class="card-header pl-5">{{ $plan->inn->name }}</h3>
         <div class="iframely-embed">
             <div class="iframely-responsive" style="height: 140px; padding-bottom: 0; width:100%;">
                 <a href="https://www.jubilo-iwata.co.jp/" data-iframely-url="//cdn.iframe.ly/VjMLuRM?iframe=card-small"></a>
@@ -13,7 +13,7 @@
         </div>
             <script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script>
         <div class="card-body">
-            <h4 class="card-title">リラックスプラン</h4>
+            <h4 class="card-title">{{ $plan->name }}</h4>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">価格: {{ $plan->price }}</li>
                 <li class="list-group-item">概要: {{ $plan->description }}</li>
