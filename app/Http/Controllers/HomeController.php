@@ -11,6 +11,13 @@ use \App\plan;
 class HomeController extends Controller
 {
     public function top(){
+        $user_status = Controller::get_user_status();
+        if($user_status === 2){
+            return $this->inn_admin_top();
+        }
+        else if($user_status === 3){
+            return $this->admin_top();
+        }
         // inn_idをkeyに持つプランの連想配列を作成
         $query_p = Plan::query();
         $plans = [];

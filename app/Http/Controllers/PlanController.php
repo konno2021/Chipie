@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use App\Plan;
 use App\Inn;
 use Illuminate\Http\Request;
+use Illuminate\Support\ViewErrorBag;
+use Illuminate\Support\MessageBag;
 
 class PlanController extends Controller
 {
@@ -17,8 +20,8 @@ class PlanController extends Controller
     {
         $user_status = Controller::get_user_status();
         if($user_status === 2) {
-            $plans = Plan::where('inn_id', \Auth::user()->inn_id)->paginate(10);
-            return view('home/inn_admin', ['plans' => $plans]);
+            $plan_lists = Plan::where('inn_id', \Auth::user()->inn_id)->paginate(10);
+            return view('plan.plan_list', ['plan_lists' => $plan_lists]);
         }
         elseif($user_status === 3) {
             $plan_lists=array();
@@ -56,12 +59,29 @@ class PlanController extends Controller
         $this->validate($request, [
             'inn_id' => 'required',
             'plan_name' => 'required|max:255',
-            'price' => 'required|min:0',
+            'price' => 'required|gt:0',
             'description' => 'required|max:255',
-            'room' => 'required',
+            'room' => 'required|gt:0',
             'started_at' => 'required',
             'ended_at' => 'required',
         ]);
+
+        // 自作バリデーション用変数
+        $errors = new ViewErrorBag;
+        $messages = new MessageBag;
+
+        $started_at = new DateTime($request->started_at);
+        $ended_at = new DateTime($request->ended_at);
+
+        // チェックイン、チェックアウト反転バリデーション
+        if($started_at > $ended_at){
+            $messages->add('', 'プランの終了年月日は開始年月日より後の日付を選択してください。');
+            $errors->put('default', $messages);
+            $request->session()->flash('errors', $errors);
+            // oldのデータを残すため
+            return back()->withInput();
+        }
+
         $plan = new \App\Plan;
         $plan->create($request->all());
         return redirect('/inn_admin');
