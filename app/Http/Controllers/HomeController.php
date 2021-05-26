@@ -35,6 +35,10 @@ class HomeController extends Controller
         return view('home/mypage',['reservations'=> $reservations]);
     }
 
+    public function inn_admin_top(){
+        return redirect(route('plans.index'));
+    }
+
     public function admin_top()
     {
         $users=User::where('is_admin', false)->where('inn_id', null)->where('deleted_at', null)->orderBy('created_at','desc')->take(5)->get();

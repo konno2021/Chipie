@@ -17,28 +17,23 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <dl>
-                        <dd>
-                            <dt>名前</dt>
-                            {{ Auth::user()->name }}
-                        </dd>
+                        <dt>名前</dt>
+                        <dd>{{ Auth::user()->name }}</dd>
                     </dl>
                     <dl>
                         <dt>住所</dt>
-                        <dd>
-                            {{ Auth::user()->address }}
-                        </dd>
+                        <dd>{{ Auth::user()->address }}</dd>
                     </dl>
                     <dl>
+                        <dt>電話番号</dt>
+                        <dd>{{ Auth::user()->tel }}</dd>
+                    <dl>
                         <dt>メールアドレス</dt>
-                        <dd>
-                            {{ Auth::user()->email }}
-                        </dd>
+                        <dd>{{ Auth::user()->email }}</dd>
                     </dl>
                     <dl>
                         <dt>生年月日</dt>
-                        <dd>
-                            {{ Auth::user()->birthday }}
-                        </dd>
+                        <dd>{{ Auth::user()->birthday }}</dd>
                     </dl>
                     {{-- <dl>
                         <dt>パスワード</dt>
@@ -163,7 +158,7 @@
 </div>
 <script type="text/javascript">
     function deleteUser() {
-        event.preventdefault();
+        event.preventDefault();
         if (window.confirm('本当に削除しますか？')) {
             document.getElementById('delete-form').submit();
         }
