@@ -18,7 +18,7 @@
 <tbody>
 @foreach ($inn_request_lists as $inn)
 		<tr v-for="(user,index) in users" v-bind:key="index">
-			<td>{{$inn->name}}</td>
+			<td><a href="{{route('inns.show_request_list', $inn->id)}}">{{$inn->name}}</a></td>
 			<td>{{$inn->inn_code_id}}</td>
 			<td>{{$inn->address}}</td>
             <td>{{$inn->tel}}</td>

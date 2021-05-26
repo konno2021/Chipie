@@ -19,7 +19,7 @@
 @foreach ($user_lists as $user)
 		<tr v-for="(user,index) in users" v-bind:key="index">
 			<td>{{$user->id}}</td>
-			<td>{{$user->name}}</td>
+			<td><a href="{{route('users.show', $user->id)}}">{{$user->name}}</a></td>
 			<td>{{$user->address}}</td>
             <td>{{$user->tel}}</td>
             <td>{{$user->email}}</td>

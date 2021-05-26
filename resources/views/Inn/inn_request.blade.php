@@ -61,7 +61,7 @@
     </div>
      <div class="col">
         <label for="inputAddress"class="font-weight-bold">宿のHP</label>
-      <input type="text" class="form-control" placeholder="https://" name="hp" value="{{old('hp')}}">
+      <input type="url" class="form-control" placeholder="https://" name="hp" value="{{old('hp')}}">
     </div> 
 <br>
     <div class="form-group font-weight-bold col">
@@ -70,8 +70,8 @@
     </div>
 
      <div class="form-group form-check ml-3">
-                    <input type="checkbox" class="form-check-input " id="exampleCheck1">
-                    <label class="form-check-label " for="exampleCheck1">ご確認の上クリックをお願いします</label>
+                    <input type="checkbox" class="form-check-input " id="exampleCheck1" required>
+                    <label class="form-check-label " for="exampleCheck1" >ご確認の上クリックをお願いします</label>
      </div>
      <button type="submit" class="btn btn-primary col">申請</button>
   </form>

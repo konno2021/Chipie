@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 use Illuminate\Support\Facades\Hash;
 
@@ -47,7 +48,7 @@ class UserController extends Controller
         }elseif($user_status===3){
             $inn=Inn::find($request->inn_id);
             $inn->is_ok=true;
-            $inn->password=Hash::make('123456789');
+            // $inn->password=Hash::make('123456789');//宿アカウントのパスワードがなかった時に使用していた
             $inn->save();
             $user=new User;
             $user->name=$request->name;
@@ -95,6 +96,13 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->validate($request, [
+            'name'  => 'required|max:255',
+            'address' => 'required|max:255', 
+            'tel' => 'regex:/^[0-9]{2,4}-[0-9]{2,4}-[0-9]{3,4}$/|min:10|max:14|required',
+            'email' => ['required', 'email', Rule::unique('users')->ignore($user->id)],
+            'birthday' => 'required|',
+        ]);
         $user->update($request->all());
         return redirect(route('users.index'));
     }

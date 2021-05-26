@@ -65,7 +65,6 @@ class PlanController extends Controller
      */
     public function show(Plan $plan)
     {
-        $plan=plan::with('inn')->first();
         return view('plan.plan_show', ['plan'=>$plan]);
     }
 
