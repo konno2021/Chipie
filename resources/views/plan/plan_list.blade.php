@@ -18,7 +18,7 @@
 	<tbody>
 @foreach ($plan_lists as $plan)
 		<tr v-for="(user,index) in users" v-bind:key="index">
-			<td><a href="{{}}">{{$plan->inn->name}}</td>
+			<td><a href="{{route('plans.show', $plan->id)}}">{{$plan->inn->name}}</td>
 			<td>{{$plan->plan_name}}</td>
 			<td>{{$plan->description}}</td>
             <td>{{$plan->room}}</td>

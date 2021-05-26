@@ -19,14 +19,14 @@
 @foreach ($inn_lists as $inn)
 		<tr v-for="(user,index) in users" v-bind:key="index">
 			<td>{{$inn->id}}</td>
-			<td>{{$inn->name}}</td>
+			<td><a href="{{route('inns.show_lists', $inn->id)}}">{{$inn->name}}</a></td>
 			<td>{{$inn->inn_code_id}}</td>
             <td>{{$inn->address}}</td>
             <td>{{$inn->tel}}</td>
             <td>{{$inn->email}}</td>
             <td>
                 <div class="form-row">
-                    <button><a href="{{route('inns.edit', $inn)}}">変更</a></button>
+                    <button><a href="{{route('inns.edit', $inn)}}">修正</a></button>
                     {{-- <form method="post" action="{{route('inns.edit', $inn_list)}}">
                         @csrf
                         <input type="hidden" name="password" value="{{$inn_list->password}}">

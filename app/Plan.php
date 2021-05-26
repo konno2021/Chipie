@@ -22,6 +22,4 @@ class Plan extends Model
     {
         return $this->belongsTo(Inn::class);
     }
-
-  
 }

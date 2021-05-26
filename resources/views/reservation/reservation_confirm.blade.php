@@ -41,17 +41,17 @@
 			<div class="col-8">
 				<div class="form-row font-weight-bold">
 					<div class="form-group col-4">
-						<label for="check-in">チェックイン日時</label>
+						<label for="check-in">チェックイン</label>
 						<input type="date" name="check_in" id="check-in" class="form-control" value="{{ old('check_in') }}" min="{{ date('Y-m-d', strtotime('+1 day')) }}">
 					</div>
 					<div class="form-group col-4">
-						<label for="check-out">チェックアウト日時</label>
+						<label for="check-out">チェックアウト</label>
 						<input type="date" name="check_out" id="check-out" class="form-control" value="{{ old('check_out') }}" min="{{ date('Y-m-d', strtotime('+2 day')) }}">
 					</div>
 
 					<div class="form-group col-4">
 						<label for="room">部屋数</label>
-						<input type="number" name="room" id="room" class="form-control" value="{{ old('room', 1) }}">
+						<input type="number" name="room" id="room" class="form-control" value="{{ old('room', 1) }}" min="1" max="{{ $plan->room }}">
 					</div>
 
 					<div class="form-group col-12">
@@ -98,7 +98,7 @@
 				sum_price.innerHTML = sum_price_value.toLocaleString();
 			}
 			else{
-				sum_price.innerHTML = 'チェックイン日時とチェックアウト日時の値が不正です。';
+				sum_price.innerHTML = 'チェックインとチェックアウトの値が不正です。';
 			}
 		}
 	}

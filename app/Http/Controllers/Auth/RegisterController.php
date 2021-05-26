@@ -68,15 +68,6 @@ class RegisterController extends Controller
         if($inn_id === 'null'){
             $inn_id = null;
         }
-        $is_admin = $data['is_admin'];
-        if($is_admin === 'false'){
-            $is_admin = false;
-        }
-        //管理者用の登録に追加しました
-        $is_admin = $data['is_admin'];
-        if($is_admin === 'true'){
-            $is_admin = true;
-        }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -85,7 +76,7 @@ class RegisterController extends Controller
             'address' => $data['address'],
             'tel' => $data['tel'],
             'birthday' => $data['birthday'],
-            'is_admin' => $is_admin,
+            'is_admin' => $data['is_admin'],
             'deleted_at' => null,
         ]);
     }
