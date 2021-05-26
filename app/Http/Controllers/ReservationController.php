@@ -18,9 +18,8 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $plans = \Auth::user()->plans()
-            ->orderBy('created_at', 'desc')->paginnate(5);
-            return view('mypage',['plans' => $plans]);
+        $plans = \Auth::user()->plans()->orderBy('created_at', 'desc')->paginnate(5);
+        return view('mypage',['plans' => $plans]);
     }
 
     /**
@@ -30,9 +29,14 @@ class ReservationController extends Controller
      */
     public function create(Plan $plan)
     {
-        return view('reservation/reservation_confirm', ['plan' => $plan]);
+        $user_status = Controller::get_user_status();
+        if($user_status === 0 || $user_status === 1){
+            return view('reservation/reservation_confirm', ['plan' => $plan]);
+        }
+        return back();
     }
 
+    // postなので$user_statusによる分岐はいらない
     public function create_register(Plan $plan, Request $request)
     {
         $this->validate($request, [
@@ -157,9 +161,6 @@ class ReservationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // 自分以外の予約済み部屋数を検索、予約状態を更新、他の人の予約状態も更新
-        //
-
         // 自作バリデーション用変数
         $errors = new ViewErrorBag;
         $messages = new MessageBag;

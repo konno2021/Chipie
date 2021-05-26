@@ -19,8 +19,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user_lists=User::where('is_admin', false)->where('inn_id', null)->where('deleted_at', null)->paginate(20);
-        return view('user/user_list', ['user_lists'=>$user_lists]);
+        $user_status = Controller::get_user_status();
+        if($user_status === 3){
+            $user_lists = User::where('is_admin', false)->where('inn_id', null)->where('deleted_at', null)->paginate(20);
+            return view('user/user_list', ['user_lists'=>$user_lists]);
+        }
+        return back();
     }
 
     /**
@@ -42,10 +46,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user_status=Controller::get_user_status();
-        if($user_status===1||$user_status===0)
-        {
-
-        }elseif($user_status===3){
+        if($user_status===3){
             $inn=Inn::find($request->inn_id);
             $inn->is_ok=true;
             // $inn->password=Hash::make('123456789');//宿アカウントのパスワードがなかった時に使用していた
@@ -61,8 +62,9 @@ class UserController extends Controller
             $user->is_admin=false;
             $user->deleted_at=null;
             $user->save();
-            return redirect('admin');
+            return redirect(route('admin_top'));
         }
+        return back();
     }
 
     /**
@@ -73,7 +75,11 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('user.show', ['user'=>$user]);
+        $user_status = Controller::get_user_status();
+        if($user_status){
+            return view('user.show', ['user'=>$user]);
+        }
+        return back();
     }
 
     /**
@@ -84,7 +90,11 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('user.user_edit', ['user' => $user]);
+        $user_status = Controller::get_user_status();
+        if($user_status === 1 || $user_status === 3){
+            return view('user.user_edit', ['user' => $user]);
+        }
+        return back();
     }
 
     /**
@@ -104,7 +114,14 @@ class UserController extends Controller
             'birthday' => 'required|',
         ]);
         $user->update($request->all());
-        return redirect(route('users.index'));
+
+        $user_status = Controller::get_user_status();
+        if($user_status === 1){
+            return redirect(route('mypage'));
+        }
+        else if($user_status === 3){
+            return redirect(route('users.index'));
+        }
     }
 
     /**
