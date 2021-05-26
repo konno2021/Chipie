@@ -28,7 +28,7 @@
     
     <div class="form-group font-weight-bold col">
         <label for="inputAddress">価格 (円)：</label>
-        <input type="text" id="inputAddress" placeholder="6000" name="price" value="{{old('price')}}">
+        <input type="number" id="inputAddress" placeholder="6000" name="price" value="{{old('price')}}">
     </div>
     <br>
     <div class="form-group col-12">

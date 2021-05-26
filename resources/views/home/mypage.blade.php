@@ -44,10 +44,11 @@
                 </div>
             </div>
             <a class="btn btn-primary" href={{ route('users.edit', Auth::user()) }}>編集する</a>
-            <a class="btn btn-danger" href={{ route('users.destroy', Auth::user()) }} onclick="deleteUser()">退会する</a>
-            <form action="{{ route('users.destroy', Auth::user()) }}" method="post" id="delete-form">
+            <a class="btn btn-danger" href="#" onclick="deleteUser()">退会する</a>
+            <form action="{{ route('logout') }}" method="post" id="delete-form">
                 @csrf
-                @method('delete')
+                <input type="hidden" name="is_delete" value="1">
+                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
             </form>
         </div>
         <div class="col-6">

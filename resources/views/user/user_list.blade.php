@@ -28,12 +28,11 @@
                 <div class="form-row">
                     <button><a href="{{route('users.edit', $user)}}">変更</a></button>
                 
-                    <form method="post" action="{{route('users.destroy', $user->id)}}">
+                    <form method="post" action="{{route('logout')}}">
                         @csrf
                         @method('DELETE')
-                            <button class="btn btn-danger">削除
-                                        
-                            </button>
+                        <input type="hidden" name="is_delete" value="1">
+                        <button class="btn btn-danger">削除</button>
                     </form>
                 </div>
             </td>

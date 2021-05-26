@@ -17,11 +17,6 @@
     .non-star{
         color: black;
     }
-    @media (min-height: 600px){
-        #posts-list {
-            height: 600px;
-        };
-    }
 </style>
 <p class="mb-3 ml-3 pt-3 h1">{{ $inn->name }}</p>
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -71,66 +66,66 @@
                     </div>
                 </div>
                 <div class="collapse mt-4" id="collapse{{ $plan->id }}">
-                    <div class="card">
-                        <div class="card-body overflow-auto" id="posts-list">
-                            @if($plan->posts->count() > 0)
-                                @foreach($plan->posts as $post)
-                                    <div class="h4 mb-4">{{ $post->title }}</div>
-                                    <div class="mb-4">{{ $post->content }}</div>
-                                    <div>
-                                        <div class="text-right">
-                                            <span>（{{ $post->poster_name }}）評価：</span>
-                                            @for($i=1; $i<=5; $i++)
-                                                @if($i <= $post->value)
-                                                    <span class="star">★</span>
-                                                @else
-                                                    <span class="non-star">☆</span>
-                                                @endif
-                                            @endfor
-                                            <span>　{{ $post->created_at }}</span>
-                                        </div>
+                    <div class="card card-body overflow-auto" id="posts-list" style="max-height:600px">
+                        @if($plan->posts->count() > 0)
+                            @foreach($plan->posts as $post)
+                                <div class="h4 mb-4">{{ $post->title }}</div>
+                                <div class="mb-4">{{ $post->content }}</div>
+                                <div>
+                                    <div class="text-right">
+                                        <span>（{{ $post->poster_name }}）評価：</span>
+                                        @for($i=1; $i<=5; $i++)
+                                            @if($i <= $post->value)
+                                                <span class="star">★</span>
+                                            @else
+                                                <span class="non-star">☆</span>
+                                            @endif
+                                        @endfor
+                                        <span>　{{ $post->created_at }}</span>
                                     </div>
-                                    <hr class="mt-1">
-                                @endforeach
-                            @else
-                                <p class="text-center mb-0">まだ口コミはありません。</p>
-                            @endif
-                        </div>
+                                </div>
+                                <hr class="mt-1">
+                            @endforeach
+                        @else
+                            <p class="text-center mb-0">まだ口コミはありません。</p>
+                        @endif
                     </div>
-                    <div class="card mt-3">
-                        <div class="card-body">
-                            <div class="text-center h4 mb-3">口コミ投稿フォーム</div>
-                            <form action="{{ route('posts.store') }}" method="post" id="post-form">
-                                @csrf
-                                <table class="w-100">
-                                    <tr>
-                                        <td style="width:100px" class="text-center">名前</td>
-                                        <td><input type="text" name="poster_name" class="form-control w-50" value="<?php if(Cookie::get('poster_name')) { echo Cookie::get('poster_name'); } ?>" required></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">タイトル</td>
-                                        <td><input type="text" name="title" class="form-control w-50" required></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">感想</td>
-                                        <td><textarea name="content" class="form-control" rows="3" required></textarea></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">評価</td>
-                                        <td>
-                                            @for($i=1; $i<=5; $i++)
-                                                <input type="radio" name="value" value="{{ $i }}" id="star-{{ $i }}" style="display:none" checked>
-                                                <label for="star-{{ $i }}" id="label-{{ $i }}" class="mb-0 h3 star">★</label>
-                                            @endfor
-                                        </td>
-                                    </tr>
-                                </table>
-                                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-                                <input type="hidden" name="plan_id" value="{{ $plan->id }}">
-                                <button type="submit" class="btn btn-primary d-block mx-auto">投稿</button>
-                            </form>    
+                    @if(Auth::check())
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <div class="text-center h4 mb-3">口コミ投稿フォーム</div>
+                                <form action="{{ route('posts.store') }}" method="post" id="post-form">
+                                    @csrf
+                                    <table class="w-100">
+                                        <tr>
+                                            <td style="width:100px" class="text-center">名前</td>
+                                            <td><input type="text" name="poster_name" class="form-control w-50" value="<?php if(Cookie::get('poster_name')) { echo Cookie::get('poster_name'); } ?>" required></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">タイトル</td>
+                                            <td><input type="text" name="title" class="form-control w-50" required></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">感想</td>
+                                            <td><textarea name="content" class="form-control" rows="3" required></textarea></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">評価</td>
+                                            <td>
+                                                @for($i=1; $i<=5; $i++)
+                                                    <input type="radio" name="value" value="{{ $i }}" id="star-{{ $i }}" style="display:none" checked>
+                                                    <label for="star-{{ $i }}" id="label-{{ $i }}" class="mb-0 h3 star">★</label>
+                                                @endfor
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                                    <input type="hidden" name="plan_id" value="{{ $plan->id }}">
+                                    <button type="submit" class="btn btn-primary d-block mx-auto">投稿</button>
+                                </form>    
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>

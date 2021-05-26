@@ -1,7 +1,6 @@
 @extends('commons.template')
 
 @section('content')
-@include('commons/flash')
 <h1 class="text-center">会員登録</h1>
 <form action="{{ route('register') }}" method="post">
     @csrf

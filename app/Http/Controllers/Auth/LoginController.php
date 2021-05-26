@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -19,7 +21,10 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    // use AuthenticatesUsers;
+    use AuthenticatesUsers {
+        logout as performLogout;
+    }
 
     /**
      * Where to redirect users after login.
@@ -36,5 +41,16 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function logout(Request $request)
+    {
+        if($request->is_delete){
+            $user = User::find($request->user_id);
+            $user->deleted_at = date("Y-m-d H:i:s");
+            $user->save();
+        }
+        $this->performLogout($request);
+        return redirect('/'); // ここを好きな遷移先に変更する。
     }
 }
