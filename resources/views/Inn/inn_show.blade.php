@@ -99,15 +99,15 @@
                                     <table class="w-100">
                                         <tr>
                                             <td style="width:100px" class="text-center">名前</td>
-                                            <td><input type="text" name="poster_name" class="form-control w-50" value="<?php if(Cookie::get('poster_name')) { echo Cookie::get('poster_name'); } ?>" required></td>
+                                            <td><input type="text" name="poster_name" class="form-control w-50" value="<?php if(Cookie::get('poster_name')) { echo Cookie::get('poster_name'); } ?>" required maxlength="255"></td>
                                         </tr>
                                         <tr>
                                             <td class="text-center">タイトル</td>
-                                            <td><input type="text" name="title" class="form-control w-50" required></td>
+                                            <td><input type="text" name="title" class="form-control w-50" required maxlength="255"></td>
                                         </tr>
                                         <tr>
                                             <td class="text-center">感想</td>
-                                            <td><textarea name="content" class="form-control" rows="3" required></textarea></td>
+                                            <td><textarea name="content" class="form-control" rows="3" required maxlength="255"></textarea></td>
                                         </tr>
                                         <tr>
                                             <td class="text-center">評価</td>

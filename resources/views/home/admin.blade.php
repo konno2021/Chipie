@@ -126,7 +126,7 @@ h2 {
         <tr v-for="(user,index) in users" v-bind:key="index">
             <td>{{$plan->inn->name}}</td>
             <td>{{$plan->plan_name}}</td>
-            <th>{{$plan->price}}</th>
+            <td>{{$plan->price}}</td>
             <td>{{$plan->description}}</td>
             <td>{{$plan->room}}</td>
             <td>
@@ -137,7 +137,45 @@ h2 {
         @endforeach
 </tbody> 
 </table>
-<p>
-    <button class="btn btn-primary btn-lg"><a href="{{route('plans.create')}}" style="color:white">宿プランの登録</a></button>
-</p>
+
+<button class="btn btn-primary btn-lg"><a href="{{route('plans.create')}}" style="color:white">宿プランの登録</a></button>
+
+
+<div class="pt-5 pb-5">
+</div>
+
+<h2 class="mb-3 pt-3">口コミ (新着)</h2>
+    <button><a href="{{route('posts.index')}}">口コミ一覧はこちら</a></button>
+<table class="table table-bordered">
+	<thead  class="thead-dark">
+		<tr class="pd-2">
+            <th>口コミID</th>
+            <th>口コミ名</th>
+			<th>宿名</th>
+            <th>プラン名</th>
+            <th>タイトル</th>
+            <th>感想</th>
+            <th>評価</th>
+            <th>詳細</th>
+		</tr>
+	</thead>
+	<tbody>
+        @foreach ($posts as $post)
+        <tr v-for="(user,index) in users" v-bind:key="index">
+            <td>{{$post->id}}</td>
+            <td>{{$post->poster_name}}</td>
+            <td>{{$post->plan->inn->name}}</td>
+            <td>{{$post->plan->plan_name}}</td>
+            <td>{{$post->title}}</td>
+            <td style="width:30%">{{$post->content}}</td>
+            <td>{{$post->value}}</td>
+            <td>
+                <button><a href="{{route('posts.show', $post)}}">詳細</a></button>
+            </td>
+
+        </tr>
+        @endforeach
+</tbody> 
+</table>
+
 @endsection

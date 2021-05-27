@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-6 text-center">
-                    <button  class="btn btn-primary "><a href="{{route('inns.edit', $inn->id)}}" style=color:white>変更</a></button>
+                    <button  class="btn btn-primary "><a href="{{route('inns.edit', $inn->id)}}" style=color:white>修正</a></button>
                 </div>
                 <div class="col-6 text-center">
                         <form method="post" action="{{route('inns.destroy', $inn->id)}}">
