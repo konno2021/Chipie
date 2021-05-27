@@ -25,7 +25,7 @@ class PlanController extends Controller
         }
         elseif($user_status === 3) {
             $plan_lists=array();
-            $plan_lists=plan::with('inn')->get();
+            $plan_lists=plan::with('inn')->paginate(20);
             return view('plan.plan_list', ['plan_lists'=>$plan_lists]);
         }
         return back();
@@ -105,7 +105,10 @@ class PlanController extends Controller
     public function show(Plan $plan)
     {
         $user_status = Controller::get_user_status();
-        if($user_status === 2 || $user_status === 3){
+        if($user_status === 2){
+            $this->authorize($plan);
+            return view('plan.plan_show', ['plan'=>$plan]);
+        }elseif($user_status === 3){
             return view('plan.plan_show', ['plan'=>$plan]);
         }
         return back();
@@ -120,7 +123,11 @@ class PlanController extends Controller
     public function edit(Plan $plan)
     {
         $user_status = Controller::get_user_status();
-        if($user_status === 2 || $user_status === 3){
+        if($user_status === 2){
+            $this->authorize($plan);
+            $inn_lists=Inn::where('id', $plan->inn_id)->get();
+            return view('plan.plan_edit', ['plan' => $plan, 'inn_lists' => $inn_lists]);
+        }elseif($user_status === 3){
             $inn_lists=Inn::where('id', $plan->inn_id)->get();
             return view('plan.plan_edit', ['plan' => $plan, 'inn_lists' => $inn_lists]);
         }
