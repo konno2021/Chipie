@@ -118,22 +118,31 @@ class InnController extends Controller
             
             return view('inn/inn_index', ['inns' => $inns, 'plans' => $plans]);
         }
-        elseif($user_status === 3)  {
-            $inn_lists=Inn::with('inn_code')->where('is_ok', true)->paginate(20);
-            return view(route('admin/inn_list'));
-        }
+        return back();
+        // elseif($user_status === 3)  {
+        //     $inn_lists=Inn::with('inn_code')->where('is_ok', true)->paginate(20);
+        //     return view(route('admin/inn_list'));
+        // }
     }
 
     public function index_request_list() //宿アカウント登録申請の一覧
     {
-        $inn_request_lists=Inn::with('inn_code')->where('is_ok', false)->paginate(20);
-        return view('inn/inn_request_list', ['inn_request_lists'=>$inn_request_lists]);
+        $user_status = Controller::get_user_status();
+        if($user_status === 3){
+            $inn_request_lists=Inn::with('inn_code')->where('is_ok', false)->paginate(20);
+            return view('inn/inn_request_list', ['inn_request_lists'=>$inn_request_lists]);
+        }
+        return back();
     }
 
     public function index_list() //宿アカウントの一覧
     {
-        $inn_lists=Inn::with('inn_code')->where('is_ok', true)->paginate(20);
-        return view('inn/inn_list', ['inn_lists'=>$inn_lists]);
+        $user_status = Controller::get_user_status();
+        if($user_status === 3){
+            $inn_lists=Inn::with('inn_code')->where('is_ok', true)->paginate(20);
+            return view('inn/inn_list', ['inn_lists'=>$inn_lists]);
+        }
+        return back();
     }
 
     /**
@@ -180,20 +189,34 @@ class InnController extends Controller
      */
     public function show(Inn $inn)
     {
-        $plans = Plan::where('inn_id', $inn->id)->with('posts')->get();
-        return view('inn/inn_show', ['inn' => $inn, 'plans' => $plans]);
+        $user_status = Controller::get_user_status();
+        if($user_status === 0 || $user_status === 1){
+            $plans = Plan::where('inn_id', $inn->id)->with(['posts' => function ($query){
+                $query->orderBy('created_at', 'desc');
+            }])->get();
+            return view('inn/inn_show', ['inn' => $inn, 'plans' => $plans]);
+        }
+        return back();
     }
 
     public function show_list($id)
     {
-        $inn=Inn::with('inn_code')->find($id);
-        return view('inn.inn_show_list', ['inn'=>$inn]);
+        $user_status = Controller::get_user_status();
+        if($user_status === 3){
+            $inn = Inn::with('inn_code')->find($id);
+            return view('inn.inn_show_list', ['inn' => $inn]);
+        }
+        return back();
     }
 
     public function show_request_list($id)
     {
-        $inn=Inn::with('inn_code')->find($id);
-        return view('inn.inn_request_show', ['inn'=>$inn]);
+        $user_status = Controller::get_user_status();
+        if($user_status === 3){
+            $inn = Inn::with('inn_code')->find($id);
+            return view('inn.inn_request_show', ['inn' => $inn]);
+        }
+        return back();
     }
 
     /**
@@ -204,7 +227,11 @@ class InnController extends Controller
      */
     public function edit(Inn $inn)
     {
-        return view('inn.inn_edit', ['inn'=>$inn]);
+        $user_status = Controller::get_user_status();
+        if($user_status === 2 || $user_status === 3){
+            return view('inn.inn_edit', ['inn' => $inn]);
+        }
+        return back();
     }
 
     /**
@@ -216,7 +243,7 @@ class InnController extends Controller
      */
     public function update(Request $request, Inn $inn)
     {
-        $user=User::where('inn_id', $inn->id)->first();
+        $user = User::where('inn_id', $inn->id)->first();
         $this->validate($request, [
             'name'  => 'required|max:255',
             'address' => ['required', 'max:255', Rule::unique('inns')->ignore($inn->id), Rule::unique('users')->ignore($user->id)],
@@ -226,7 +253,6 @@ class InnController extends Controller
             'check_out' => 'required',
         ]);
         $inn->update($request->all());
-        
         $user->update($request->all());
         return redirect(route('inn.list'));
     }
@@ -239,12 +265,12 @@ class InnController extends Controller
      */
     public function destroy(Inn $inn)
     {
-            if($inn->is_ok===0){
-                $inn=Inn::find($inn->id);
-                $inn->delete();
-                return redirect('/admin');
-            }elseif($inn->is_ok===1){
-            $user=User::where('inn_id', $inn->id)->first();
+        if($inn->is_ok === 0){
+            $inn = Inn::find($inn->id);
+            $inn->delete();
+            return redirect(route('admin_top'));
+        }elseif($inn->is_ok === 1){
+            $user = User::where('inn_id', $inn->id)->first();
             $user->deleted_at=date("Y-m-d H:i:s");
             $user->save();
             $inn->delete();
