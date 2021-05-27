@@ -25,7 +25,7 @@
             </ul>
         </div>
         <div class="card-body">
-            <ul>
+            <ul class="pl-0">
             @if($is_ok === true)
                 <li  class="list-group-item text-center text-danger">ただいま予約可能</li><br>
                 <h6 class="text-muted text-center">※予約が確定していないため、この画面で時間経過すると予約が埋まってしまう場合がございます。

@@ -121,21 +121,43 @@
                                 @endif
                                 <div class="collapse" id="collapse{{ $reservation->id }}">
                                     <div class="card card-body">
+                                        <?php
+                                            $min_check_in = new DateTime($reservation->plan->started_at);
+                                            $max_check_in = new DateTime($reservation->plan->ended_at);
+                                            $min_check_out = new DateTime($reservation->plan->started_at);
+                                            $max_check_out = new DateTime($reservation->plan->ended_at);
+                                            $max_check_in->modify('-1 days');
+                                            $min_check_out->modify('+1 days');
+                                            $today = new DateTime();
+                                            if($min_check_in < $today){
+                                                $min_check_in = new DateTime();
+                                                $min_check_out = new DateTime();
+                                                $min_check_out->modify('+1 days');
+                                            }
+                                            if($max_check_in < $today){
+                                                $min_check_in = new DateTime();
+                                                $min_check_out = new DateTime();
+                                                $max_check_in = new DateTime();
+                                                $max_check_out = new DateTime();
+                                                $min_check_in->modify('+2 days');
+                                                $min_check_out->modify('+2 days');
+                                            }
+                                        ?>
                                         <form action="{{ route('reservations.update', $reservation->id) }}" method="post">
                                             @csrf
                                             @method('put')
                                             <table class="table">
                                                 <tr>
                                                     <td>チェックイン</td>
-                                                    <td><input type="date" name="check_in" value="{{ $reservation->check_in }}" class="form-control" min="{{ date('Y-m-d', strtotime('+1 day')) }}"></td>
+                                                    <td><input type="date" name="check_in" id="check-in" class="form-control" value="{{ old('check_in', $reservation->check_in) }}" min="{{ $min_check_in->format('Y-m-d') }}" max="{{ $max_check_in->format('Y-m-d') }}"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>チェックアウト</td>
-                                                    <td><input type="date" name="check_out" value="{{ $reservation->check_out }}" class="form-control" min="{{ date('Y-m-d', strtotime('+1 day')) }}"></td>
+                                                    <td><input type="date" name="check_out" id="check-out" class="form-control" value="{{ old('check_out', $reservation->check_out) }}" min="{{ $min_check_out->format('Y-m-d') }}" max="{{ $max_check_out->format('Y-m-d') }}"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>部屋数</td>
-                                                    <td><input type="number" name="room" value="{{ $reservation->room }}" class="form-control" min="1" max="{{ $reservation->plan->room }}"></td>
+                                                    <td><input type="number" name="room" value="{{ old('room', $reservation->room) }}" class="form-control" min="1" max="{{ $reservation->plan->room }}"></td>
                                                 </tr>
                                             </table>
                                             <input type="hidden" name="plan_id" value="{{ $reservation->plan_id }}">

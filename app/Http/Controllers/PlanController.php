@@ -121,7 +121,8 @@ class PlanController extends Controller
     {
         $user_status = Controller::get_user_status();
         if($user_status === 2 || $user_status === 3){
-            return view('plan.plan_edit', ['plan'=>$plan]);
+            $inn_lists=Inn::where('id', $plan->inn_id)->get();
+            return view('plan.plan_edit', ['plan' => $plan, 'inn_lists' => $inn_lists]);
         }
         return back();
     }
@@ -138,9 +139,9 @@ class PlanController extends Controller
         $this->validate($request, [
             'inn_id' => 'required',
             'plan_name' => 'required|max:255',
-            'price' => 'required|min:0',
+            'price' => 'required|gt:0',
             'description' => 'required|max:255',
-            'room' => 'required',
+            'room' => 'required|gt:0',
             'started_at' => 'required',
             'ended_at' => 'required',
         ]);

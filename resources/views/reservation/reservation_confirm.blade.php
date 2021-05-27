@@ -35,6 +35,28 @@
 		</div>
 	</div>
 
+	<?php
+		$min_check_in = new DateTime($plan->started_at);
+		$max_check_in = new DateTime($plan->ended_at);
+		$min_check_out = new DateTime($plan->started_at);
+		$max_check_out = new DateTime($plan->ended_at);
+		$max_check_in->modify('-1 days');
+		$min_check_out->modify('+1 days');
+		$today = new DateTime();
+		if($min_check_in < $today){
+			$min_check_in = new DateTime();
+			$min_check_out = new DateTime();
+			$min_check_out->modify('+1 days');
+		}
+		if($max_check_in < $today){
+			$min_check_in = new DateTime();
+			$min_check_out = new DateTime();
+			$max_check_in = new DateTime();
+			$max_check_out = new DateTime();
+			$min_check_in->modify('+2 days');
+			$min_check_out->modify('+2 days');
+		}
+	?>
 	<form action="{{ route('reservations.create_register', $plan) }}" method="post">
 		@csrf
 		<div class="form-row ml-3 mr-3">
@@ -42,11 +64,11 @@
 				<div class="form-row font-weight-bold">
 					<div class="form-group col-4">
 						<label for="check-in">チェックイン</label>
-						<input type="date" name="check_in" id="check-in" class="form-control" value="{{ old('check_in') }}" min="{{ date('Y-m-d', strtotime('+1 day')) }}">
+						<input type="date" name="check_in" id="check-in" class="form-control" value="{{ old('check_in') }}" min="{{ $min_check_in->format('Y-m-d') }}" max="{{ $max_check_in->format('Y-m-d') }}">
 					</div>
 					<div class="form-group col-4">
 						<label for="check-out">チェックアウト</label>
-						<input type="date" name="check_out" id="check-out" class="form-control" value="{{ old('check_out') }}" min="{{ date('Y-m-d', strtotime('+2 day')) }}">
+						<input type="date" name="check_out" id="check-out" class="form-control" value="{{ old('check_out') }}" min="{{ $min_check_out->format('Y-m-d') }}" max="{{ $max_check_out->format('Y-m-d') }}">
 					</div>
 
 					<div class="form-group col-4">

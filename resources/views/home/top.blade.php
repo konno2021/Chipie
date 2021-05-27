@@ -139,9 +139,9 @@
                                 <dl>
                                     <dt>宿泊期間</dt>
                                     <dd>
-                                        <input class="form-control" type="date" name="check_in" placeholder="日">
+                                        <input class="form-control" type="date" name="check_in" placeholder="日" min="{{ date('Y-m-d') }}">
                                         <span>～</span>
-                                        <input class="form-control" type="date" name="check_out" placeholder="日">
+                                        <input class="form-control" type="date" name="check_out" placeholder="日" min="{{ date('Y-m-d', strtotime('+1 day')) }}">
                                     </dd>
                                 </dl>
                                 <dl>
