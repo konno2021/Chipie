@@ -31,6 +31,8 @@
 				<li class="list-group-item">概要：{{ $plan->description }}</li>
 				<li class="list-group-item">価格：<span id="price">{{ number_format($plan->price) }}</span></li>
 				<li class="list-group-item">部屋数：<span id="max-room">{{ $plan->room }}</span></li>
+				<li class="list-group-item">プラン開始日：{{ substr($plan->started_at, 0, 10) }}</span></li>
+				<li class="list-group-item">プラン終了日：{{ substr($plan->ended_at, 0, 10) }}</span></li>
 			</ul>
 		</div>
 	</div>

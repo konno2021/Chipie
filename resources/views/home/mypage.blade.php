@@ -73,10 +73,10 @@
                                                 <p><a class="btn btn-info text-light" href="#collapse{{ $reservation->id }}" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapse{{ $reservation->id }}">変更する</a></p>
                                             </div>
                                             <div class="col-6">
-                                                <form action="{{ route('reservations.destroy', $reservation->id) }}" method="post">
+                                                <form action="{{ route('reservations.destroy', $reservation->id) }}" method="post" id="cancel-form-{{ $reservation->id }}">
                                                     @csrf
                                                     @method('delete')
-                                                    <button class="btn btn-danger">キャンセルする</button>
+                                                    <button class="btn btn-danger" onclick="cancelClick({{ $reservation->id }})">キャンセルする</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -89,10 +89,10 @@
                                                 <p><a class="btn btn-info text-light" href="#collapse{{ $reservation->id }}" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapse{{ $reservation->id }}">変更する</a></p>
                                             </div>
                                             <div class="col-6">
-                                                <form action="{{ route('reservations.destroy', $reservation->id) }}" method="post">
+                                                <form action="{{ route('reservations.destroy', $reservation->id) }}" method="post" id="cancel-form-{{ $reservation->id }}">
                                                     @csrf
                                                     @method('delete')
-                                                    <button class="btn btn-danger">キャンセルする</button>
+                                                    <button class="btn btn-danger" onclick="cancelClick({{ $reservation->id }})">キャンセルする</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -108,10 +108,10 @@
                                                 </form>
                                             </div>
                                             <div class="col-6">
-                                                <form action="{{ route('reservations.destroy', $reservation->id) }}" method="post">
+                                                <form action="{{ route('reservations.destroy', $reservation->id) }}" method="post" id="cancel-form-{{ $reservation->id }}">
                                                     @csrf
                                                     @method('delete')
-                                                    <button class="btn btn-danger d-block mx-auto">キャンセルする</button>
+                                                    <button class="btn btn-danger d-block mx-auto" onclick="cancelClick({{ $reservation->id }})">キャンセルする</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -143,7 +143,7 @@
                                                 $min_check_out->modify('+2 days');
                                             }
                                         ?>
-                                        <form action="{{ route('reservations.update', $reservation->id) }}" method="post">
+                                        <form action="{{ route('reservations.update', $reservation->id) }}" method="post" id="update-form-{{ $reservation->id }}">
                                             @csrf
                                             @method('put')
                                             <table class="table">
@@ -165,7 +165,7 @@
                                             <input type="hidden" name="demand" value="{{ $reservation->demand }}">
                                             <input type="hidden" name="token" value="{{ $reservation->token }}">
                                             <input type="hidden" name="status" value="{{ $reservation->status }}">
-                                            <button type="submit" class="btn btn-primary text-light d-block mx-auto">内容を保存する</button>
+                                            <button type="submit" class="btn btn-primary text-light d-block mx-auto" onclick="updateClick({{ $reservation->id }})">内容を保存する</button>
                                         </form>
                                     </div>
                                 </div>
@@ -185,6 +185,18 @@
         if (window.confirm('本当に削除しますか？')) {
             document.getElementById('delete-form').submit();
         }
-    }   
+    }
+    function cancelClick(id) {
+        event.preventDefault();
+        if (window.confirm('本当にキャンセルしますか？')) {
+            document.getElementById('cancel-form-' + id).submit();
+        }
+    }
+    function updateClick(id) {
+        event.preventDefault();
+        if (window.confirm('予約内容を変更するとキャンセル待ち予約になる可能性があります。\n予約内容を保存しますか？')) {
+            document.getElementById('update-form-' + id).submit();
+        }
+    }  
 </script>
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use App\User;
 use App\Inn;
 use App\Plan;
@@ -70,13 +71,23 @@ class InnController extends Controller
             }
             // チェックイン日付検索
             if($request->check_in){
-                $check_in = date('Y-m-d', strtotime($request->check_in));
-                $query_p->where('started_at', '<=', "{$check_in}");
+                $check_in = new DateTime($request->check_in);
+                // $check_in = date('Y-m-d h:', strtotime($request->check_in));
+                $query_p->where('started_at', '<=', "{$check_in->format('Y-m-d')}");
             }
             // チェックアウト日付検索
             if($request->check_out){
-                $check_out = date('Y-m-d', strtotime($request->check_out));
-                $query_p->where('ended_at', '>=', "{$check_out}");
+                $check_out = new DateTime($request->check_out);
+                // $check_out = date('Y-m-d', strtotime($request->check_out));
+                $query_p->where('ended_at', '>=', "{$check_out->format('Y-m-d')}");
+            }
+            // チェックイン、チェックアウトが反転している場合
+            if($request->check_in && $request->check_out){
+                $check_in = new DateTime($request->check_in);
+                $check_out = new DateTime($request->check_out);
+                if($check_in >= $check_out){
+                    $query_p->where('id', -1);
+                }
             }
             
             // inn_idをkeyに持つプランの連想配列を作成
