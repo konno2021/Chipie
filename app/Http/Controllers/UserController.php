@@ -76,7 +76,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         $user_status = Controller::get_user_status();
-        if($user_status){
+        if($user_status===3){
             return view('user.show', ['user'=>$user]);
         }
         return back();
@@ -91,7 +91,10 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $user_status = Controller::get_user_status();
-        if($user_status === 1 || $user_status === 3){
+        if($user_status === 1 ){
+            $this->authorize($user);
+            return view('user.user_edit', ['user' => $user]);
+        }elseif($user_status === 3){
             return view('user.user_edit', ['user' => $user]);
         }
         return back();
@@ -106,6 +109,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
         $this->validate($request, [
             'name'  => 'required|max:255',
             'address' => 'required|max:255', 
@@ -128,6 +132,7 @@ class UserController extends Controller
         }
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
@@ -136,10 +141,19 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $user_status = Controller::get_user_status();
+        if($user_status === 1){
+        $this->authorize($user);
         $user=User::find($user->id);
         $user->deleted_at=date("Y-m-d H:i:s");
         $user->save();
+        return redirect(route('/'));
+        }elseif($user_status === 3){
+        $user=User::find($user->id);
+        $user->deleted_at=date("Y-m-d H:i:s");
         return redirect(route('users.index'));
+        $user->save();
+        }
     }
 
     public function destroy_request(Inn $inn_request_list)
