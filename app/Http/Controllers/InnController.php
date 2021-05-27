@@ -202,7 +202,11 @@ class InnController extends Controller
     public function show_list($id)
     {
         $user_status = Controller::get_user_status();
-        if($user_status === 3){
+        if($user_status === 2) {
+            $inn = Inn::with('inn_code')->find($id);
+            return view('inn.inn_show_list', ['inn' => $inn]);
+        }
+        elseif($user_status === 3){
             $inn = Inn::with('inn_code')->find($id);
             return view('inn.inn_show_list', ['inn' => $inn]);
         }
@@ -265,11 +269,12 @@ class InnController extends Controller
      */
     public function destroy(Inn $inn)
     {
-        if($inn->is_ok === 0){
+        if($inn->is_ok === 0) {
             $inn = Inn::find($inn->id);
             $inn->delete();
             return redirect(route('admin_top'));
-        }elseif($inn->is_ok === 1){
+            }
+        elseif($inn->is_ok === 1) {
             $user = User::where('inn_id', $inn->id)->first();
             $user->deleted_at=date("Y-m-d H:i:s");
             $user->save();

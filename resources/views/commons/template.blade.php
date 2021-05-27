@@ -63,7 +63,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                    <a class="nav-link" href="{{ route('inns.edit', \Auth::user()->inn_id) }}">宿アカウント変更・削除</a>
+                    <a class="nav-link" href="{{ route('inns.show_list', \Auth::user()->inn_id) }}">マイページ</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="{{ route('plans.create') }}">プラン登録</a>
