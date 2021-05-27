@@ -14,5 +14,5 @@
     </div>
     <button type="submit" class="btn btn-primary mx-auto d-block">ログイン</button>
 </form>
-<p class="text-center"><a href="#">パスワードを忘れた方はこちらから</a></p>
+<p class="text-center"><a href="{{route('reset.pass')}}">パスワードを忘れた方はこちらから</a></p>
 @endsection

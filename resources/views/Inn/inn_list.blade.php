@@ -46,4 +46,5 @@
 @endforeach
 </tbody>
 </table>
+{{ $inn_lists->links() }}
 @endsection

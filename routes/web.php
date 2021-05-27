@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\InnController;
+use Illuminate\Auth\Notifications\ResetPassword;
 
 Route::get('/', 'HomeController@top');
 Auth::routes();
@@ -46,3 +47,7 @@ Route::delete('admin/inn/request_list', 'UserController@destroy_request')->name(
 Route::get('admin', 'HomeController@admin_top')->name('admin_top');
 Route::get('admin/inn/{id}/show', 'InnController@show_list')->name('inns.show_lists');
 Route::get('admin/inn/{id}/request_show', 'InnController@show_request_list')->name('inns.show_request_list');
+
+//パスワードリセット
+Route::get('reset_pass', 'Auth\ResetPasswordController@reset_pass')->name('reset.pass');
+Route::post('change_pass', 'Auth\ResetPasswordController@change_pass')->name('change_pass');

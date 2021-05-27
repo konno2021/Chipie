@@ -43,4 +43,5 @@
 @endforeach
 </tbody>
 </table>
+{{ $plan_lists->links() }}
 @endsection

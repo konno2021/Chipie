@@ -64,8 +64,8 @@ class PlanController extends Controller
             'price' => 'required|gt:0',
             'description' => 'required|max:255',
             'room' => 'required|gt:0',
-            'started_at' => 'required',
-            'ended_at' => 'required',
+            'started_at' => 'required|after:today',
+            'ended_at' => 'required|after:started_at',
         ]);
 
         // 自作バリデーション用変数
