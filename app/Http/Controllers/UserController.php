@@ -111,7 +111,7 @@ class UserController extends Controller
             'address' => 'required|max:255', 
             'tel' => 'regex:/^[0-9]{2,4}-[0-9]{2,4}-[0-9]{3,4}$/|min:10|max:14|required',
             'email' => ['required', 'email', Rule::unique('users')->ignore($user->id)],
-            'birthday' => 'required|',
+            'birthday' => 'required|before:today',
         ]);
         $user->update($request->all());
 

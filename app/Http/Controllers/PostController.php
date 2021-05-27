@@ -15,7 +15,12 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $user_status = Controller::get_user_status();
+        if($user_status === 3){
+            $post_lists=Post::with('user')->with('plan')->paginate(20);
+            return view('post/post_index', ['post_lists'=>$post_lists]);
+        }
+        return back();
     }
 
     /**
@@ -50,7 +55,11 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        $user_status = Controller::get_user_status();
+        if($user_status === 3){
+            return view('post.post_show', ['post'=>$post]);
+        }
+        return back();
     }
 
     /**
@@ -61,7 +70,11 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $user_status = Controller::get_user_status();
+        if($user_status === 3){
+            return view('post.post_edit', ['post'=>$post]);
+        }
+        return back();
     }
 
     /**
@@ -73,7 +86,19 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $user_status = Controller::get_user_status();
+        if($user_status === 3){
+        $this->validate($request, [
+            'poster_name' => 'required|max:255',
+            'title' => 'required|max:255',
+            'content' => 'required|max:255',
+            'value' => 'required',
+        ]);
+        
+        $post->update($request->all());
+          return redirect(route('admin_top'));
+        }
+        
     }
 
     /**
@@ -84,6 +109,12 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        
+        $user_status = Controller::get_user_status();
+        if($user_status === 3) {
+            $post->delete();
+            return redirect(route('admin_top'));
+        }
+        return back();
     }
 }
