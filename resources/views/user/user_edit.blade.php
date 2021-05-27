@@ -53,6 +53,6 @@
         <label for="password">パスワード</label>
         <input type="password" name="password" class="form-control">
     </div>
-    <p><button type="submit" class="btn btn-primary mx-auto d-block">変更</button></p>
+    <p><button type="submit" class="btn btn-primary mx-auto d-block">更新</button></p>
 </form>
 @endsection

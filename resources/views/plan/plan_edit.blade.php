@@ -65,7 +65,7 @@
     </div>
 <br>
     <div class="form-group font-weight-bold col ">
-     <button type="submit" class="btn btn-primary col">変更を保存</button>
+     <button type="submit" class="btn btn-primary col">更新</button>
     </div>
   </form>
 @endsection

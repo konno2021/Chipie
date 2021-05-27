@@ -136,10 +136,10 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        // $user=User::find($user->id);
-        // $user->deleted_at=date("Y-m-d H:i:s");
-        // $user->save();
-        // return redirect(route('users.index'));
+        $user=User::find($user->id);
+        $user->deleted_at=date("Y-m-d H:i:s");
+        $user->save();
+        return redirect(route('users.index'));
     }
 
     public function destroy_request(Inn $inn_request_list)

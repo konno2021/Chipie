@@ -166,7 +166,7 @@ h2 {
             <td>{{$post->poster_name}}</td>
             <td>{{$post->plan->inn->name}}</td>
             <td>{{$post->plan->plan_name}}</td>
-            <td>{{$post->title}}</td>
+            <td style="width:30%">{{$post->title}}</td>
             <td style="width:30%">{{$post->content}}</td>
             <td>{{$post->value}}</td>
             <td>

@@ -26,7 +26,7 @@
             <td>{{$user->birthday}}</td>
             <td>
                 <div class="form-row">
-                    <button><a href="{{route('users.edit', $user)}}">変更</a></button>
+                    <button><a href="{{route('users.edit', $user)}}">修正</a></button>
                 </div>
             </td>
 
