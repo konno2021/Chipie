@@ -161,6 +161,12 @@ class ReservationController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'check_in' => 'required',
+            'check_out' => 'required',
+            'room' => 'required',
+        ]);
+
         // 自作バリデーション用変数
         $errors = new ViewErrorBag;
         $messages = new MessageBag;

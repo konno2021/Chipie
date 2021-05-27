@@ -49,6 +49,10 @@
         <label for="birtyday">生年月日</label>
         <input type="date" name="birthday" value="{{ old('birthday', $user->birthday) }}" class="form-control">
     </div>
+    <div class="form-group">
+        <label for="password">パスワード</label>
+        <input type="password" name="password" class="form-control">
+    </div>
     <p><button type="submit" class="btn btn-primary mx-auto d-block">変更</button></p>
 </form>
 @endsection
