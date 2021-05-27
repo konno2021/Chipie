@@ -26,6 +26,7 @@ Route::post('reservations/{plan}/create/register', 'ReservationController@create
 Route::post('reservations/{id}/waiting_to_reserved', 'ReservationController@waiting_to_reserved')->name('reservations.waiting_to_reserved');
 Route::get('inn/request_list', 'InnController@index_request_list')->name('inn.request_list');
 Route::get('inn/list', 'InnController@index_list')->name('inn.list');
+Route::get('inn/{id}/show', 'InnController@show_list')->name('inns.show_list');
 Route::get('inn_admin', 'HomeController@inn_admin_top')->name('inn_admin_top');
 // 仮
 

@@ -137,6 +137,7 @@ h2 {
         @endforeach
 </tbody> 
 </table>
-
-<button class="btn btn-primary btn-lg"><a href="{{route('plans.create')}}" style="color:white">宿プランの登録</a></button>
+<p>
+    <button class="btn btn-primary btn-lg"><a href="{{route('plans.create')}}" style="color:white">宿プランの登録</a></button>
+</p>
 @endsection
