@@ -1,6 +1,7 @@
 @extends('commons.template')
 
 @section('content')
+<br>
 <h1 class="text-center">会員登録</h1>
 <form action="{{ route('register') }}" method="post">
     @csrf
@@ -43,6 +44,6 @@
             <option value="1">管理者</option>
         </select>
     </div>
-    <button type="submit" class="btn btn-primary mx-auto d-block">登録</button>
+    <p><button type="submit" class="btn btn-primary mx-auto d-block">登録</button></p>
 </form>
 @endsection

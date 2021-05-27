@@ -1,7 +1,31 @@
 @extends('commons.template')
 
 @section('content')
-<h1 class="text-center">会員登録</h1>
+    <style>
+        h1 {
+        position: relative;
+        display: inline-block;
+        padding: 0 55px;
+        }
+
+        h1:before, h1:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        display: inline-block;
+        width: 45px;
+        height: 1px;
+        background-color: black;
+        }
+
+        h1:before {
+        left:0;
+        }
+        h1:after {
+        right: 0;
+        }
+    </style>
+<h1 class="text-center mt-3 mb-3">{{ $user->name }}様の登録内容</h1>
 <form action="{{ route('users.update', $user->id) }}" method="post">
     @csrf
     @method('PUT')
@@ -25,6 +49,6 @@
         <label for="birtyday">生年月日</label>
         <input type="date" name="birthday" value="{{ old('birthday', $user->birthday) }}" class="form-control">
     </div>
-    <button type="submit" class="btn btn-primary mx-auto d-block">変更</button>
+    <p><button type="submit" class="btn btn-primary mx-auto d-block">変更</button></p>
 </form>
 @endsection
