@@ -202,9 +202,13 @@ class InnController extends Controller
     public function show_list($id)
     {
         $user_status = Controller::get_user_status();
-        if($user_status === 2) {
+        if($user_status === 2) {           
             $inn = Inn::with('inn_code')->find($id);
-            return view('inn.inn_show_list', ['inn' => $inn]);
+            if(\Auth::user()->can('view', $inn)) {
+                return view('inn.inn_show_list', ['inn' => $inn]);
+            }
+            abort(403,'This action is unauthorized.');
+
         }
         elseif($user_status === 3){
             $inn = Inn::with('inn_code')->find($id);
@@ -232,7 +236,11 @@ class InnController extends Controller
     public function edit(Inn $inn)
     {
         $user_status = Controller::get_user_status();
-        if($user_status === 2 || $user_status === 3){
+        if($user_status === 2) {
+            $this->authorize($inn);
+            return view('inn.inn_edit', ['inn' => $inn]);
+        }
+        elseif($user_status === 3){
             return view('inn.inn_edit', ['inn' => $inn]);
         }
         return back();
@@ -247,6 +255,7 @@ class InnController extends Controller
      */
     public function update(Request $request, Inn $inn)
     {
+        $this->authorize($inn);
         $user = User::where('inn_id', $inn->id)->first();
         $this->validate($request, [
             'name'  => 'required|max:255',
@@ -255,6 +264,7 @@ class InnController extends Controller
             'email' => ['required', 'email', Rule::unique('inns')->ignore($inn->id), Rule::unique('users')->ignore($user->id)],
             'check_in' => 'required',
             'check_out' => 'required',
+            'password' => ['required', 'string', 'min:8'],
         ]);
         $password = Hash::make($request->password);
         $password = array('password' => $password);
