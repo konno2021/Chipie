@@ -256,6 +256,9 @@ class InnController extends Controller
             'check_in' => 'required',
             'check_out' => 'required',
         ]);
+        $password = Hash::make($request->password);
+        $password = array('password' => $password);
+        $request->merge($password);
         $inn->update($request->all());
         $user->update($request->all());
         return redirect(route('inn.list'));

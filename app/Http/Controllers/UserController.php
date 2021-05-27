@@ -110,9 +110,13 @@ class UserController extends Controller
             'name'  => 'required|max:255',
             'address' => 'required|max:255', 
             'tel' => 'regex:/^[0-9]{2,4}-[0-9]{2,4}-[0-9]{3,4}$/|min:10|max:14|required',
-            'email' => ['required', 'email', Rule::unique('users')->ignore($user->id)],
+            'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'birthday' => 'required|before:today',
+            'password' => ['required', 'string', 'min:8'],
         ]);
+        $password = Hash::make($request->password);
+        $password = array('password' => $password);
+        $request->merge($password);
         $user->update($request->all());
 
         $user_status = Controller::get_user_status();
