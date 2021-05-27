@@ -59,10 +59,16 @@
         <input type="time"  id="exampleInputPassword1" name="check_out" value="{{old('check_out', $inn->check_out)}}">
 <br>
     </div>
-     <div class="col">
+    <div class="col">
         <label for="inputAddress"class="font-weight-bold">宿のHP</label>
       <input type="url" class="form-control" placeholder="https://" name="hp" value="{{old('hp', $inn->hp)}}">
     </div> 
+    <br>
+    <div class="col">
+        <label for="password" class="font-weight-bold">パスワード</label>
+        <input type="password" name="password" class="form-control">
+    </div>
+    <br>
     <div>
         <button type="submit" class="btn btn-primary col">更新</button>
         </form>
