@@ -166,7 +166,7 @@ class InnController extends Controller
         $this->validate($request, [
             'name'  => 'required|max:255',
             'address' => 'required|unique:inns|max:255',
-            'tel' => 'regex:/^[0-9\-]+$/i|max:14|required',
+            'tel' => 'regex:/^[0-9]{2,4}-[0-9]{2,4}-[0-9]{3,4}$/|min:10|max:14|required',
             'email' => 'required|email|unique:inns',
             'check_in' => 'required',
             'check_out' => 'required',
