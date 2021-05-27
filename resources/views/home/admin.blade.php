@@ -109,19 +109,19 @@ h2 {
 </div>
 
 <h2 class="mb-3 pt-3">プラン (新着)</h2>
-    <button><a href="{{route('plans.index')}}">プラン一覧はこちら</a></button>
+    <button class="bg-dark mb-3"><a  class="text-light" href="{{route('plans.index')}}">プラン一覧はこちら</a></button>
 <table class="table table-bordered">
-	<thead  class="thead-dark">
+	<thead  class="thead-dark text-center">
 		<tr class="pd-2">
             <th>宿名</th>
 			<th>プラン名</th>
             <th>料金</th>
 			<th>プラン内容</th>
             <th>部屋数</th>
-            <th>詳細</th>
+            <th  style="width:120px">詳細</th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody >
         @foreach ($plans as $plan)
         <tr v-for="(user,index) in users" v-bind:key="index">
             <td>{{$plan->inn->name}}</td>
@@ -130,7 +130,7 @@ h2 {
             <td>{{$plan->description}}</td>
             <td>{{$plan->room}}</td>
             <td>
-                <button><a href="{{route('plans.show', $plan->id)}}">詳細</a></button>
+                <button class="w-100 h-100"><a href="{{route('plans.show', $plan->id)}}">詳細</a></button>
             </td>
 
         </tr>
