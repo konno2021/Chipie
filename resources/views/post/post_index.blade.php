@@ -46,4 +46,5 @@
 @endforeach
 </tbody>
 </table>
+{{ $post_lists->links() }}
 @endsection

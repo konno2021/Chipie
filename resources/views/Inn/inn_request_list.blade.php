@@ -50,5 +50,7 @@
 		</tr>
 @endforeach
 </tbody>
+
 </table>
+{{ $inn_request_lists->links() }}
 @endsection

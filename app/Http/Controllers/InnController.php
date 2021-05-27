@@ -167,7 +167,7 @@ class InnController extends Controller
             'name'  => 'required|max:255',
             'address' => 'required|unique:inns|max:255',
             'tel' => 'regex:/^[0-9]{2,4}-[0-9]{2,4}-[0-9]{3,4}$/|min:10|max:14|required',
-            'email' => 'required|email|unique:inns',
+            'email' => 'required|email|unique:inns|max:255',
             'check_in' => 'required',
             'check_out' => 'required',
             // 'hp' => 'url',//これがあるとURLが必須になってしまう
@@ -251,14 +251,20 @@ class InnController extends Controller
         $this->validate($request, [
             'name'  => 'required|max:255',
             'address' => ['required', 'max:255', Rule::unique('inns')->ignore($inn->id), Rule::unique('users')->ignore($user->id)],
-            'tel' => 'regex:/^[0-9\-]+$/i|max:14|required',
+            'tel' => 'regex:/^[0-9]{2,4}-[0-9]{2,4}-[0-9]{3,4}$/|max:14|required',
             'email' => ['required', 'email', Rule::unique('inns')->ignore($inn->id), Rule::unique('users')->ignore($user->id)],
             'check_in' => 'required',
             'check_out' => 'required',
         ]);
         $inn->update($request->all());
         $user->update($request->all());
+        $user_status = Controller::get_user_status();
+        if($user_status === 3){
         return redirect(route('inn.list'));
+
+        }elseif($user_status === 2){
+        return redirect('inn_admin');
+        }
     }
 
     /**
