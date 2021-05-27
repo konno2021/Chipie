@@ -12,7 +12,7 @@
             <th>電話番号</th>
             <th>メールアドレス</th>
             <th>生年月日</th>
-            <th>変更・削除</th>
+            <th>詳細</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -27,13 +27,6 @@
             <td>
                 <div class="form-row">
                     <button><a href="{{route('users.edit', $user)}}">変更</a></button>
-                
-                    <form method="post" action="{{route('logout')}}">
-                        @csrf
-                        @method('DELETE')
-                        <input type="hidden" name="is_delete" value="1">
-                        <button class="btn btn-danger">削除</button>
-                    </form>
                 </div>
             </td>
 
