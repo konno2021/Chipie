@@ -137,14 +137,14 @@ class InnController extends Controller
                     $plan_values[$plan->id] = $plan->posts->average('value');
                     if(!is_null($plan_values[$plan->id])){
                         $num_count += $plan->posts->count();
-                        $value_count += $plan_values[$plan->id];
+                        $value_count += $plan->posts->sum('value');
                     }
                     else{
                         $plan_values[$plan->id] = -1;
                     }
                 }
                 if($num_count !== 0){
-                    $inn_values[$inn->id] = $value_count;
+                    $inn_values[$inn->id] = $value_count / $num_count;
                 }
                 else{
                     $inn_values[$inn->id] = -1;
