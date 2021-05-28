@@ -1,6 +1,23 @@
 @extends('commons.template')
 
 @section('content')
+    <style>
+        .star {
+            color: yellow;
+            text-shadow:
+                1px 0px 2px orange,
+                0px 1px 2px orange,
+                -1px 0px 2px orange,
+                0px -1px 2px orange,
+                1px -1px 2px orange,
+                -1px 1px 2px orange,
+                -1px -1px 2px orange,
+                1px -1px 2px orange;
+        }
+        .non-star{
+            color: black;
+        }
+    </style>
     <h4 class="mb-3 ml-3 pt-3">検索結果一覧</h4>
 
     @foreach($inns as $inn)
@@ -9,7 +26,19 @@
             <div class="card-body">
                 <div class="card-title">
                     <span class="h3"><a href="{{ route('inns.show', $inn) }}">{{ $inn->name }}</a></span>
-                    <span class="h6">（{{ $inn->inn_code->inn_code }}）</span>
+                    <span>（{{ $inn->inn_code->inn_code }}）</span>
+                    @if($inn_values[$inn->id] !== -1)
+                        @for($i=1; $i<=5; $i++)
+                            @if($i <= round($inn_values[$inn->id]))
+                                <span class="star">★</span>
+                            @else
+                                <span class="non-star">☆</span>
+                            @endif
+                        @endfor
+                        {{-- <span>{{ $inn_values[$inn->id] }}</span> --}}
+                    @else
+                        <span>まだレビューはありません</span>
+                    @endif
                 </div>
                 <div class="card-text">
                     <table class="table">
@@ -41,6 +70,20 @@
                             <div class="col-4 card p-0" style="width:20rem">
                                 <div class="card-body">
                                     <p class="card-title h4 text-center">{{ $plan->plan_name }}</p>
+                                    @if($plan_values[$plan->id] !== -1)
+                                        <div class="text-center">
+                                            @for($i=1; $i<=5; $i++)
+                                                @if($i <= round($plan_values[$plan->id]))
+                                                    <span class="star">★</span>
+                                                @else
+                                                    <span class="non-star">☆</span>
+                                                @endif
+                                            @endfor
+                                            {{-- {{ $plan_values[$plan->id] }} --}}
+                                        </div>
+                                    @else
+                                        <div class="text-center">まだレビューはありません</div>
+                                    @endif
                                     <p class="card-text text-center">{{ number_format($plan->price) }}円 / {{ $plan->room }}部屋</p>
                                     <p class="card-text">{{ $plan->description }}</p>
                                     <p class="text-center mb-0"><a href="{{ route('reservations.create', $plan) }}" class="btn btn-primary">詳細・予約</a></p>
