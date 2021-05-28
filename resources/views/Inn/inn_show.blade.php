@@ -121,6 +121,7 @@
                                     </table>
                                     <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                                     <input type="hidden" name="plan_id" value="{{ $plan->id }}">
+                                    <input type="hidden" name="value" value="5" id="value-hidden">
                                     <button type="submit" class="btn btn-primary d-block mx-auto">投稿</button>
                                 </form>    
                             </div>
@@ -146,6 +147,7 @@
                     tmp.classList.add('non-star');
                 }
             }
+            star_form[plan_id].elements['value'].value = len;
         }
         let plan_id = []
         @foreach($plans as $plan){
