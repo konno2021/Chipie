@@ -94,7 +94,7 @@
                         <div class="card mt-3">
                             <div class="card-body">
                                 <div class="text-center h4 mb-3">口コミ投稿フォーム</div>
-                                <form action="{{ route('posts.store') }}" method="post" id="post-form">
+                                <form action="{{ route('posts.store') }}" method="post" id="post-form-{{ $plan->id }}">
                                     @csrf
                                     <table class="w-100">
                                         <tr>
@@ -113,8 +113,8 @@
                                             <td class="text-center">評価</td>
                                             <td>
                                                 @for($i=1; $i<=5; $i++)
-                                                    <input type="radio" name="value" value="{{ $i }}" id="star-{{ $i }}" style="display:none" checked>
-                                                    <label for="star-{{ $i }}" id="label-{{ $i }}" class="mb-0 h3 star">★</label>
+                                                    <input type="radio" name="value_{{ $plan->id }}" value="{{ $i }}" id="star-{{ $plan->id }}-{{ $i }}" style="display:none" checked>
+                                                    <label for="star-{{ $plan->id}}-{{ $i }}" id="label-{{ $plan->id }}-{{ $i }}" class="mb-0 h3 star">★</label>
                                                 @endfor
                                             </td>
                                         </tr>
@@ -131,10 +131,10 @@
         </div>
     @endforeach
     <script>
-        function changeStar(){
-            let len = star_form.value.value;
+        function changeStar(plan_id){
+            let len = star_form[plan_id].elements['value_' + plan_id].value;
             for(let i=1; i<=5; i++){
-                let tmp = document.getElementById('label-' + i);
+                let tmp = document.getElementById('label-' + plan_id + '-' + i);
                 if(i <= len){
                     tmp.innerHTML = '★';
                     tmp.classList.remove('non-star');
@@ -147,11 +147,21 @@
                 }
             }
         }
-        
-        let star_form = document.getElementById('post-form');
-        let value = document.getElementsByName('value');
-        value.forEach(function(e){
-            e.addEventListener('change', changeStar);
-        });
+        let plan_id = []
+        @foreach($plans as $plan){
+            plan_id.push({{ $plan->id }});
+        }
+        @endforeach
+        let star_form = [];
+        let value = [];
+        for(let i=0; i<plan_id.length; i++){
+            star_form[plan_id[i]] = document.getElementById('post-form-' + plan_id[i]);
+            value[plan_id[i]] = document.getElementsByName('value_' + plan_id[i]);
+        }
+        for(let i=0; i<plan_id.length; i++){
+            value[plan_id[i]].forEach(function(e){
+                e.addEventListener('change', function() { changeStar(plan_id[i]) });
+            });
+        }
     </script>
 @endsection

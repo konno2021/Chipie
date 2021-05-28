@@ -127,7 +127,31 @@ class InnController extends Controller
             // 宿情報の取得
             $inns = $query_i->paginate(10);
             
-            return view('inn/inn_index', ['inns' => $inns, 'plans' => $plans]);
+            // 宿の評価、プランの評価
+            $inn_values = array();
+            $plan_values = array();
+            foreach($inns as $inn){
+                $num_count = 0;
+                $value_count = 0;
+                foreach($inn->plans as $plan){
+                    $plan_values[$plan->id] = $plan->posts->average('value');
+                    if(!is_null($plan_values[$plan->id])){
+                        $num_count += $plan->posts->count();
+                        $value_count += $plan_values[$plan->id];
+                    }
+                    else{
+                        $plan_values[$plan->id] = -1;
+                    }
+                }
+                if($num_count !== 0){
+                    $inn_values[$inn->id] = $value_count;
+                }
+                else{
+                    $inn_values[$inn->id] = -1;
+                }
+            }
+
+            return view('inn/inn_index', ['inns' => $inns, 'plans' => $plans, 'inn_values' => $inn_values, 'plan_values' => $plan_values]);
         }
         return back();
         // elseif($user_status === 3)  {
@@ -266,7 +290,6 @@ class InnController extends Controller
      */
     public function update(Request $request, Inn $inn)
     {
-        $this->authorize($inn);
         $user = User::where('inn_id', $inn->id)->first();
         $this->validate($request, [
             'name'  => 'required|max:255',

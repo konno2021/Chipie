@@ -128,6 +128,10 @@
                                         </select>
                                     </dd>
                                 </dl>
+                            </th>
+                            </tr>
+                            <tr scope="row">
+                                <th>
                                 <dl>
                                     <dt>価格</dt>
                                     <dd>
@@ -136,22 +140,32 @@
                                         <input class="form-control" type="number" name="max_price" placeholder="円">
                                     </dd>
                                 </dl>
+                                </th>
+                            </tr>
+                            <tr scope="row">
+                                <th>
                                 <dl>
                                     <dt>宿泊期間</dt>
                                     <dd>
-                                        <input class="form-control" type="date" name="check_in" placeholder="日" min="{{ date('Y-m-d') }}">
+                                        <input class="form-control" type="date" name="check_in" min="{{ date('Y-m-d') }}">
                                         <span>～</span>
-                                        <input class="form-control" type="date" name="check_out" placeholder="日" min="{{ date('Y-m-d', strtotime('+1 day')) }}">
+                                        <input class="form-control" type="date" name="check_out" min="{{ date('Y-m-d', strtotime('+1 day')) }}">
                                     </dd>
                                 </dl>
+                                </th>
+                            </tr>
+                            <tr scope="row">
+                                <th>
                                 <dl>
                                     <dt>キーワード</dt>
                                     <dd><input class="form-control" type="text" name="keyword" placeholder="例)宿名・住所"></dd>
                                 </dl>
-                            <button class="btn btn-primary d-block mx-auto" type="submit">検索</button>
+                                </th>
+                            </tr>
                         </th>
                     </tr>
                 </table>
+                <button class="btn btn-primary d-block mx-auto" type="submit">検索</button>
             </div>
             <div class="col-4">
             <table class="table table-hover">
