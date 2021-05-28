@@ -14,7 +14,7 @@ class InnsTableSeeder extends Seeder
         for($i=1; $i<=5; $i++)
         {
             $inn= new \App\Inn([
-                'name' => 'test num'. $i,
+                'name' => 'test'. $i,
                 'inn_code_id' => rand(1,5),
                 'address'=> '東京都テスト区テスト'.$i,
                 'email'=> 'test'.$i.'@index.com',
