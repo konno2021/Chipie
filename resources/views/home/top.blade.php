@@ -167,8 +167,8 @@
                 </table>
                 <button class="btn btn-primary d-block mx-auto" type="submit">検索</button>
             </div>
-            <div class="col-4">
-            <table class="table table-hover">
+            <div class="col-4 ">
+            <table class="table table-hover ">
                     <thead>
                         <tr>
                             <th scope="col" class="text-center">今週のおすすめ宿</th>
@@ -178,7 +178,7 @@
                         <tr>
                             <th scope="row">
                                 @foreach($inns as $inn)
-                                    <div class="card card-body mb-3">
+                                    <div class="card card-body mb-3  text-center border-secondary"  >
                                         <dl>
                                             <dt>宿名</dt>
                                             <dd><a href="{{ route('inns.show', $inn) }}">{{ $inn->name }}</a></dd>

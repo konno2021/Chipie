@@ -1,10 +1,10 @@
 @extends('commons.template')
 
 @section('content')
-<h2 class="mb-3 pt-3">◇会員一覧</h2>
+<h2 class="mb-3 pt-3">＜会員一覧＞</h2>
 
 <table class="table table-bordered">
-    <thead  class="thead-dark">
+    <thead  class="thead-dark text-center">
         <tr class="pd-2">
 			<th>ID</th>
 			<th>ユーザ名</th>
@@ -12,7 +12,7 @@
             <th>電話番号</th>
             <th>メールアドレス</th>
             <th>生年月日</th>
-            <th>詳細</th>
+            <th style="width:120px">詳細</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -26,7 +26,7 @@
             <td>{{$user->birthday}}</td>
             <td>
                 <div class="form-row">
-                    <button><a href="{{route('users.edit', $user)}}">修正</a></button>
+                    <button class="w-100 h-100"><a href="{{route('users.edit', $user)}}">修正</a></button>
                 </div>
             </td>
 

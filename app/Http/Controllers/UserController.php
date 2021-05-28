@@ -151,8 +151,8 @@ class UserController extends Controller
         }elseif($user_status === 3){
         $user=User::find($user->id);
         $user->deleted_at=date("Y-m-d H:i:s");
-        return redirect(route('users.index'));
         $user->save();
+        return redirect(route('users.index'));
         }
     }
 

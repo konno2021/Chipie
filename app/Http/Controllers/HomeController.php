@@ -62,9 +62,9 @@ class HomeController extends Controller
         $user_status = Controller::get_user_status();
         if($user_status === 3){
             $users=User::where('is_admin', false)->where('inn_id', null)->where('deleted_at', null)->orderBy('created_at','desc')->take(5)->get();
-            $inns=Inn::where('is_ok', true)->orderBy('created_at', 'desc')->take(5)->get();
+            $inns=Inn::with('inn_code')->where('is_ok', true)->orderBy('created_at', 'desc')->take(5)->get();
             $plans=Plan::with('inn')->orderBy('created_at','desc')->take(5)->get();
-            $inn_requests=Inn::where('is_ok', false)->orderBy('created_at','desc')->take(5)->get();
+            $inn_requests=Inn::with('inn_code')->where('is_ok', false)->orderBy('created_at','desc')->take(5)->get();
             $posts=Post::with('user')->with('plan.inn')->orderBy('created_at','desc')->take(5)->get();
             return view('home.admin', ['users'=>$users, 'inns'=>$inns, 'plans'=>$plans, 'inn_requests'=>$inn_requests, 'posts'=>$posts]);
         }

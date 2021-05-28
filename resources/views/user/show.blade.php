@@ -17,14 +17,22 @@
                     <button  class="btn btn-primary "><a href="{{route('users.edit', $user->id)}}" style=color:white>修正</a></button>
                 </div>
                 <div class="col-6 text-center">
-                        <form method="post" action="{{route('users.destroy', $user->id)}}">
+                        <form method="post" action="{{route('users.destroy', $user->id)}}" id="delete-form">
                         @csrf
                         @method('delete')
-                            <button class="btn btn-danger">削除</button>
+                            <button class="btn btn-danger" onclick="deleteClick()">削除</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function deleteClick() {
+        event.preventDefault();
+        if (window.confirm('本当に削除しますか？')) {
+            document.getElementById('delete-form').submit();
+        }
+    }
+</script>
 @endsection
