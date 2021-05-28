@@ -266,7 +266,6 @@ class InnController extends Controller
      */
     public function update(Request $request, Inn $inn)
     {
-        $this->authorize($inn);
         $user = User::where('inn_id', $inn->id)->first();
         $this->validate($request, [
             'name'  => 'required|max:255',

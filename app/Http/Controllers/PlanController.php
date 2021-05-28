@@ -25,7 +25,7 @@ class PlanController extends Controller
         }
         elseif($user_status === 3) {
             $plan_lists=array();
-            $plan_lists=plan::with('inn')->paginate(20);
+            $plan_lists=plan::with('inn')->orderBy('inn_id', 'desc')->paginate(20);
             return view('plan.plan_list', ['plan_lists'=>$plan_lists]);
         }
         return back();

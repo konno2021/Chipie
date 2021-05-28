@@ -1,7 +1,7 @@
 @extends('commons.template')
 
 @section('content')
-<h2 class="mb-3 pt-3">◇プラン一覧</h2>
+<h2 class="mb-3 pt-3">＜プラン一覧＞</h2>
 <table class="table table-bordered">
     <thead  class="thead-dark">
         <tr class="pd-2">

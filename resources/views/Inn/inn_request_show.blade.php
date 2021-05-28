@@ -5,7 +5,7 @@
 <div class="card" style="width: 100;">
     <ul class="list-group list-group-flush">
       <li class="list-group-item">宿名：{{$inn->name}}</li>
-      <li class="list-group-item">分類グループ：{{$inn->inn_code->inn_code}}({{$inn->inn_code_id}}</li>
+      <li class="list-group-item">分類グループ：{{$inn->inn_code->inn_code}}({{$inn->inn_code_id}})</li>
       <li class="list-group-item">住所：{{$inn->address}}</li>
       <li class="list-group-item">メールアドレス：{{$inn->email}}</li>
       <li class="list-group-item">電話番号：{{$inn->tel}}</li>
@@ -30,14 +30,22 @@
                     </form>
                 </div>
                 <div class="col-6 text-center">
-                        <form method="post" action="{{route('inns.destroy', $inn)}}">
+                        <form method="post" action="{{route('inns.destroy', $inn)}}" id="delete-form">
                         @csrf
                         @method('delete')
-                            <button class="btn btn-danger">却下</button>
+                            <button class="btn btn-danger" onclick="deleteClick()">却下</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function deleteClick() {
+        event.preventDefault();
+        if (window.confirm('本当に削除しますか？')) {
+            document.getElementById('delete-form').submit();
+        }
+    }
+</script>
 @endsection

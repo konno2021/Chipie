@@ -4,10 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Plan extends Model
 {
     protected $fillable=['inn_id','plan_name','price', 'description', 'room', 'ended_at', 'started_at' ] ;
 
+     
+
+     //リレーション定義
     public function posts()
     {
         return $this->hasMany(Post::class);
