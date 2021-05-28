@@ -22,7 +22,8 @@
 
     @foreach($inns as $inn)
         <div class="card ml-3 mr-3">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect fill="#868e96" width="100%" height="100%"/><text fill="#dee2e6" dy=".3em" x="50%" y="50%">Image cap</text></svg>
+            {{-- <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect fill="#868e96" width="100%" height="100%"/><text fill="#dee2e6" dy=".3em" x="50%" y="50%">Image cap</text></svg> --}}
+            <img src="{{ asset('img/yado'. mt_rand(1,2) .'.png') }}" style="width:100%; height:300px; object-fit:cover;">
             <div class="card-body">
                 <div class="card-title">
                     <span class="h3"><a href="{{ route('inns.show', $inn) }}">{{ $inn->name }}</a></span>
