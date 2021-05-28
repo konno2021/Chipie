@@ -11,7 +11,7 @@ class PlansTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i=1; $i<=10; $i++)
+        for($i=1; $i<=3; $i++)
         {
             $inn= new \App\Plan([
                 'inn_id' => '94',//ここは自分で設定してください,
